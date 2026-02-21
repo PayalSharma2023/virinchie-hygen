@@ -1,7 +1,7 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
-import bcrypt from 'bcryptjs';
-import { NextFunction } from 'express';
+import mongoose, { Schema, Document, Model } from "mongoose";
+import bcrypt from "bcryptjs";
 
+// 1. Define the Admin interface
 export interface IAdmin extends Document {
   email: string;
   password: string;
@@ -10,7 +10,8 @@ export interface IAdmin extends Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const AdminSchema: Schema = new Schema({
+// 2. Create the schema
+const AdminSchema: Schema<IAdmin> = new Schema({
   email: {
     type: String,
     required: true,
@@ -32,29 +33,24 @@ const AdminSchema: Schema = new Schema({
   },
 });
 
-// Hash password before saving
-AdminSchema.pre('save', async function (next: NextFunction) {
-  if (!this.isModified('password')) {
-    return next();
-  }
+// 3. Hash password before saving (async middleware — no next callback)
+AdminSchema.pre("save", async function () {
+  // Only hash if the password was modified
+  if (!this.isModified("password")) return;
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error: any) {
-    next(error);
-  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Method to compare password
+// 4. Method to compare passwords
 AdminSchema.methods.comparePassword = async function (
   candidatePassword: string
 ): Promise<boolean> {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
+// 5. Export the model (avoid recompiling on hot reload)
 const Admin: Model<IAdmin> =
-  mongoose.models.Admin || mongoose.model<IAdmin>('Admin', AdminSchema);
+  mongoose.models.Admin || mongoose.model<IAdmin>("Admin", AdminSchema);
 
 export default Admin;
