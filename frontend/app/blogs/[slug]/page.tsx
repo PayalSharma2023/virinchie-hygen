@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import Navbar from '@/app/components/Navbar';
+import Navbar from '@/components/layout/Navbar';
 import type { Metadata } from 'next';
 
 interface Blog {

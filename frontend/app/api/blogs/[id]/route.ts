@@ -1,32 +1,31 @@
-import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import Blog from '@/models/Blog';
-import { middleware } from '@/middleware/auth';
-import { deleteFromCloudinary } from '@/lib/cloudinary';
+import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/mongodb";
+import Blog from "@/models/Blog";
+import { middleware } from "@/middleware/auth";
+import { deleteFromCloudinary } from "@/lib/cloudinary";
 
 // GET single blog
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
+    const { id } = await params; // here we await the promise
 
-    const blog = await Blog.findById(params.id);
+    // now use id normally
+    const blog = await Blog.findById(id);
 
     if (!blog) {
-      return NextResponse.json(
-        { error: 'Blog not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
     return NextResponse.json({ blog });
-  } catch (error: any) {
-    console.error('Get blog error:', error);
+  } catch (error) {
+    console.error("Get blog error:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch blog' },
-      { status: 500 }
+      { error: "Failed to fetch blog" },
+      { status: 500 },
     );
   }
 }
@@ -34,7 +33,7 @@ export async function GET(
 // PUT update blog (admin only)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   // Check authentication
   const authError = await middleware(request);
@@ -44,14 +43,11 @@ export async function PUT(
     await connectDB();
 
     const data = await request.json();
-
-    const blog = await Blog.findById(params.id);
+    const { id } = await params;
+    const blog = await Blog.findById(id);
 
     if (!blog) {
-      return NextResponse.json(
-        { error: 'Blog not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
     // If publishing for the first time, set publishedAt
@@ -67,22 +63,22 @@ export async function PUT(
       try {
         await deleteFromCloudinary(blog.featuredImage.publicId);
       } catch (error) {
-        console.error('Failed to delete old image:', error);
+        console.error("Failed to delete old image:", error);
       }
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(
-      params.id,
+      id,
       { $set: data },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     return NextResponse.json({ success: true, blog: updatedBlog });
-  } catch (error: any) {
-    console.error('Update blog error:', error);
+  } catch (error) {
+    console.error("Update blog error:", error);
     return NextResponse.json(
-      { error: 'Failed to update blog' },
-      { status: 500 }
+      { error: "Failed to update blog" },
+      { status: 500 },
     );
   }
 }
@@ -90,7 +86,7 @@ export async function PUT(
 // DELETE blog (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   // Check authentication
   const authError = await middleware(request);
@@ -98,31 +94,31 @@ export async function DELETE(
 
   try {
     await connectDB();
-
-    const blog = await Blog.findById(params.id);
+    const { id } = await params;
+    const blog = await Blog.findById(id);
 
     if (!blog) {
-      return NextResponse.json(
-        { error: 'Blog not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
     // Delete featured image from Cloudinary
     try {
       await deleteFromCloudinary(blog.featuredImage.publicId);
     } catch (error) {
-      console.error('Failed to delete image from Cloudinary:', error);
+      console.error("Failed to delete image from Cloudinary:", error);
     }
 
-    await Blog.findByIdAndDelete(params.id);
+    await Blog.findByIdAndDelete(id);
 
-    return NextResponse.json({ success: true, message: 'Blog deleted successfully' });
-  } catch (error: any) {
-    console.error('Delete blog error:', error);
+    return NextResponse.json({
+      success: true,
+      message: "Blog deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete blog error:", error);
     return NextResponse.json(
-      { error: 'Failed to delete blog' },
-      { status: 500 }
+      { error: "Failed to delete blog" },
+      { status: 500 },
     );
   }
 }

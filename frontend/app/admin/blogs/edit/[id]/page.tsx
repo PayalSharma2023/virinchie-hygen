@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-import RichTextEditor from '@/app/components/ui/RichTextEditor';
+import RichTextEditor from '@/components/ui/RichTextEditor';
 import { Upload, X } from 'lucide-react';
 
 export default function EditBlogPage({ params }: { params: { id: string } }) {
