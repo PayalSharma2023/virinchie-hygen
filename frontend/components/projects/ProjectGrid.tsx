@@ -4,78 +4,36 @@ import { useState } from "react"
 import ProjectCard from "./ProjectCard"
 import { projects } from "@/lib/data/projects"
 
-// const projects = [
-  
-//   {
-//   "id": "1",
-//   "title": "Residential House – 3D Elevation",
-//   "slug": "residential-3d-elevation",
-//   "category": "residential",
-//   image: "/projects/1.1.jpeg",
-//   "description": "A 3D elevation is like a photo of a building before it is built, showing how it will look after construction.",
-//   "highlights": [
-//     "Shows exterior design clearly",
-//     "Looks realistic and lifelike",
-//     "Easy for clients to understand"
-//   ],
-//   "comparison": {
-//     "2dElevation": "Flat drawing without depth",
-//     "3dElevation": "Realistic view with depth, shadows, and textures"
-//   },
-//   completionDate: "2024",
-// }
-// ,
-//   {
-//     id: "2",
-//     title: "Modern Villa - Ambala Cantt",
-//     slug: "modern-villa-ambala",
-//     category: "residential",
-//     description: "Luxurious 4BHK villa with contemporary design",
-//     image: "/projects/1.1.jpeg",
-//     location: "Ambala Cantt, Haryana",
-//     completionDate: "2024",
-//     area: "3500 sq ft",
-//   },
-//   {
-//     id: "3",
-//     title: "Modern Villa - Ambala Cantt",
-//     slug: "modern-villa-ambala",
-//     category: "residential",
-//     description: "Luxurious 4BHK villa with contemporary design",
-//     image: "/projects/1.2.jpeg",
-//     location: "Ambala Cantt, Haryana",
-//     completionDate: "2024",
-//     area: "3500 sq ft",
-//   },
-//   // … other projects
-// ]
+const categories = [
+  { value: "all", label: "All Projects" },
+  { value: "hydrology", label: "Hydrology" },
+  { value: "infrastructure", label: "Infrastructure" },
+  { value: "environment", label: "Environment" },
+  { value: "gis", label: "GIS" },
+  { value: "water", label: "Water" },
+  { value: "energy", label: "Energy" },
+]
 
 export default function ProjectGrid() {
   const [filter, setFilter] = useState("all")
 
   const filteredProjects =
-    filter === "all" ? projects : projects.filter((p) => p.category === filter)
-
-  const categories = [
-    { value: "all", label: "All Projects" },
-    { value: "residential", label: "Residential" },
-    { value: "commercial", label: "Commercial" },
-    { value: "studio", label: "Studio" },
-    { value: "shopping complex", label: "Shopping Complex" },
-  ]
+    filter === "all"
+      ? projects
+      : projects.filter((p) => p.category?.toLowerCase() === filter)
 
   return (
-    <section className="max-w-5xl mx-auto">
-      {/* Category filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
+    <section className="space-y-8">
+      {/* Filter bar */}
+      <div className="flex flex-wrap gap-2">
         {categories.map((cat) => (
           <button
             key={cat.value}
             onClick={() => setFilter(cat.value)}
-            className={`px-6 py-2 rounded-full font-medium transition-all ${
+            className={`text-xs font-semibold px-4 py-2 rounded-full border transition-all duration-200 ${
               filter === cat.value
-                ? "bg-primary-600 text-black shadow-lg"
-                : "bg-white text-gray-700 hover:bg-gray-100 shadow"
+                ? "bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-200"
+                : "bg-white text-slate-500 border-slate-200 hover:border-sky-300 hover:text-sky-500"
             }`}
           >
             {cat.label}
@@ -83,12 +41,32 @@ export default function ProjectGrid() {
         ))}
       </div>
 
-      {/* Grid of projects */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      {/* Results count */}
+      <p className="text-sm text-slate-400">
+        Showing <span className="font-semibold text-slate-600">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? "s" : ""}
+        {filter !== "all" && (
+          <> in <span className="font-semibold text-sky-500 capitalize">{filter}</span></>
+        )}
+      </p>
+
+      {/* Grid */}
+      {filteredProjects.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-20 bg-sky-50/50 border border-sky-100 rounded-2xl">
+          <p className="text-slate-400 text-sm">No projects found in this category.</p>
+          <button
+            onClick={() => setFilter("all")}
+            className="mt-4 text-xs font-semibold text-sky-500 hover:text-sky-600 transition-colors"
+          >
+            View all projects →
+          </button>
+        </div>
+      )}
     </section>
   )
 }

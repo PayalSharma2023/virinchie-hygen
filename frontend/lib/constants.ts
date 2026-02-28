@@ -13,10 +13,10 @@ export const COMPANY_INFO = {
     country: 'India'
   },
   social: {
-    facebook: 'https://facebook.com/dmaangroup',
-    instagram: 'https://instagram.com/dmaangroup',
-    linkedin: 'https://linkedin.com/company/dmaangroup',
-    youtube: 'https://youtube.com/@dmaangroup'
+    facebook: 'https://facebook.com/virinchiehygen',
+    instagram: 'https://instagram.com/virinchiehygen',
+    linkedin: 'https://linkedin.com/company/virinchiehygen',
+    youtube: 'https://youtube.com/@virinchiehygen'
   },
   businessHours: {
     weekdays: '9:00 AM - 7:00 PM',
