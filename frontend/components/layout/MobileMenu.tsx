@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { NAV_LINKS } from "@/lib/constants"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { ChevronDown } from "lucide-react"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -12,9 +13,11 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname()
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null)
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset"
+    if (!isOpen) setOpenAccordion(null)
     return () => { document.body.style.overflow = "unset" }
   }, [isOpen])
 
@@ -44,7 +47,59 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* Nav links */}
           <nav className="p-3 space-y-1">
             {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.path
+              const hasDropdown = "dropdown" in link && link.dropdown && link.dropdown.length > 0
+              const isActive = pathname === link.path || (hasDropdown && link.dropdown!.some((d) => pathname === d.path))
+              const isAccordionOpen = openAccordion === link.name
+
+              if (hasDropdown) {
+                return (
+                  <div key={link.path}>
+                    {/* Accordion trigger */}
+                    <button
+                      onClick={() => setOpenAccordion(isAccordionOpen ? null : link.name)}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        isActive
+                          ? "bg-blue-50 text-[#210568] font-semibold"
+                          : "text-gray-700 hover:bg-gray-50 hover:text-[#01589e]"
+                      }`}
+                    >
+                      <span>{link.name}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-300 text-[#01589e] ${isAccordionOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {/* Accordion content */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isAccordionOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="pl-4 pr-2 pb-1 pt-0.5 space-y-0.5">
+                        {link.dropdown!.map((item, i) => (
+                          <Link
+                            key={item.path}
+                            href={item.path}
+                            onClick={onClose}
+                            className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-all duration-150 ${
+                              i === 0
+                                ? "font-semibold text-[#210568] hover:bg-blue-50"
+                                : "text-gray-500 hover:text-[#01589e] hover:bg-gray-50"
+                            }`}
+                          >
+                            {i !== 0 && (
+                              <span className="w-1 h-1 rounded-full bg-[#13baf6] flex-shrink-0" />
+                            )}
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+
               return (
                 <Link
                   key={link.path}
@@ -75,7 +130,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               onClick={onClose}
               className="block text-center px-4 py-3 text-sm font-semibold text-[#210568] border-2 border-[#210568] rounded-xl hover:bg-[#210568] hover:text-white transition-all duration-200"
             >
-              View Open Jobs
+              View Open Careers
             </Link>
             <Link
               href="/contact"

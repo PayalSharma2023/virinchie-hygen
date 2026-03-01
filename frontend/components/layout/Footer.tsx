@@ -31,7 +31,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="text-white font-bold text-sm uppercase tracking-wide" style={{ fontFamily: "'Georgia', serif" }}>
-                  Virinchie Hygen
+                  Virinchie Hy<span className="text-red-500">gen</span>
                 </span>
                 <span className="text-sky-400 text-[10px] uppercase tracking-widest font-medium">
                   Engineering Consultants
@@ -151,13 +151,40 @@ export default function Footer() {
         </div>
       </div>
 
+      
+
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/[0.06] px-6 py-5">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/30">
-          <span>&copy; {currentYear} {COMPANY_INFO.name}. All rights reserved.</span>
-          <span>Designed with care for resilient communities 🏔️</span>
+          <p className="text-slate-500 text-xs">
+            © {new Date().getFullYear()} Virinchie Hygen Engineering Consultants Pvt. Ltd. All rights reserved.
+          </p>
+
+          <div className="flex items-center gap-4">
+            <Link href="/blog" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">
+              Blog
+            </Link>
+            <span className="text-slate-700">·</span>
+            <Link href="/contact" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">
+              Contact
+            </Link>
+            <span className="text-slate-700">·</span>
+            {/* ─── Admin link — subtle, footer only ─── */}
+            <Link
+              href="/admin/login"
+              className="text-slate-700 hover:text-slate-500 text-[11px] transition-colors duration-200"
+              title="Admin"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
+        
       </div>
+
+      {/* Divider */}
+        
+      
     </footer>
   );
 }

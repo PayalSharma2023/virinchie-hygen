@@ -167,6 +167,29 @@ const services = [
       </svg>
     ),
   },
+  {
+  title: "Building Information Modeling (BIM)",
+  category: "BIM",
+  desc: "Integrated digital modeling and data‑driven workflows that enhance planning, design coordination, clash detection, and lifecycle management for infrastructure and building projects.",
+  points: [
+    "3D parametric modeling for architecture, structure & MEP",
+    "Clash detection & interdisciplinary coordination",
+    "4D scheduling & 5D cost estimation",
+    "As‑built modeling & facility management support"
+  ],
+  link: "/services/bim",
+  color: "from-cyan-400 to-blue-500",     // relatable engineering/design colors
+  bg: "bg-cyan-50",
+  border: "border-cyan-100",
+  text: "text-cyan-600",
+  icon: (
+    <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h3l3 8h8l3-8h3" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v7m0 4v1" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 14h8" />
+    </svg>
+  ),
+}
 ];
 
 const categories = ["All", ...Array.from(new Set(services.map((s) => s.category)))];
@@ -180,7 +203,7 @@ export default function ServicesPage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#f0f7ff]">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50 ">
           <Image src="/services.jpg" alt="Engineering Services" fill priority className="object-cover brightness-105 saturate-75" />
           <div className="absolute inset-0 bg-gradient-to-br from-sky-50/90 via-white/70 to-teal-50/85" />
         </div>

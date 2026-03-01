@@ -1,211 +1,307 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  FaBuilding,
-  FaBath,
-  FaBolt,
-  FaDoorOpen,
-  FaUtensils,
-  FaPaintRoller,
-  FaShieldAlt,
-  FaTruck,
-  FaCogs,
-  FaCheck,
-} from "react-icons/fa";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Gold Package | Virinchie Hygen Engineering Consultants",
-  description:
-    "Premium Gold construction package with enhanced materials, luxury finishes, and 5-year warranty at ₹1999 per sq.ft.",
-};
+import { useState } from "react";
+import Link from "next/link";
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const specs = [
+  {
+    category: "Structure & Civil",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+      </svg>
+    ),
+    items: [
+      { label: "Steel Grade", value: "Fe500 — JSW / Jai Bharat" },
+      { label: "Cement", value: "Ultratech" },
+      { label: "Shuttering", value: "Premium shuttering" },
+      { label: "Walls", value: "AAC Blocks" },
+      { label: "Plaster", value: "Premium plaster, waterproofing" },
+    ],
+  },
+  {
+    category: "Flooring & Painting",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+      </svg>
+    ),
+    items: [
+      { label: "Living / Bedrooms", value: "Premium vitrified tiles" },
+      { label: "Bathrooms", value: "Anti-skid premium ceramic" },
+      { label: "Paint Brand", value: "Asian Royale acrylic emulsion" },
+      { label: "Finish", value: "Premium putty + texture coat" },
+    ],
+  },
+  {
+    category: "Kitchen",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5M6 10.608v8.137A2.25 2.25 0 0 0 8.25 21h7.5A2.25 2.25 0 0 0 18 18.745V10.608" />
+      </svg>
+    ),
+    items: [
+      { label: "Counter", value: "Granite countertop" },
+      { label: "Tiles", value: "Designer tiles (dado)" },
+      { label: "Kitchen", value: "Modular kitchen + chimney provision" },
+      { label: "Extras", value: "Hardscape & landscape design" },
+    ],
+  },
+  {
+    category: "Doors & Windows",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+      </svg>
+    ),
+    items: [
+      { label: "Main Door", value: "Hardwood frame with veneer finish" },
+      { label: "Interior", value: "Premium flush doors" },
+      { label: "Windows", value: "UPVC with better insulation" },
+      { label: "Hardware", value: "Premium fittings" },
+    ],
+  },
+  {
+    category: "Electrical",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+      </svg>
+    ),
+    items: [
+      { label: "Wiring", value: "Polycab premium FRLS" },
+      { label: "Switches", value: "Havells modular" },
+      { label: "Lighting", value: "Premium LED + extra points" },
+      { label: "Type", value: "Concealed conduit wiring" },
+    ],
+  },
+  {
+    category: "Bathroom",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+    ),
+    items: [
+      { label: "Sanitaryware", value: "Jaguar / Hindware Premium" },
+      { label: "CP Fittings", value: "Jaguar / Hindware" },
+      { label: "Wall Tiles", value: "Premium ceramic designer" },
+      { label: "Floor", value: "Premium anti-skid" },
+    ],
+  },
+  {
+    category: "Special Features",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+      </svg>
+    ),
+    items: [
+      { label: "Rainwater Harvesting", value: "Included" },
+      { label: "HVAC", value: "Provisions included" },
+      { label: "Landscape", value: "Hardscape & landscape design" },
+      { label: "Warranty", value: "5-year extended warranty" },
+    ],
+  },
+];
+
+// ─── COMPONENT ───────────────────────────────────────────────────────────────
 
 export default function GoldPackagePage() {
+  const [openSection, setOpenSection] = useState<number | null>(0);
+
   return (
-    <main className="font-sans text-gray-700">
+    <main className="font-sans bg-white text-slate-800">
 
-      {/* ================= HERO ================= */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-24 text-center">
-        <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Gold Package
-          </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Enhanced materials and premium features with the perfect balance
-            of cost and luxury.
-          </p>
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-sky-50 py-24">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-100/40 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-64 h-64 bg-sky-100/40 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-20 -right-20 w-[500px] h-[500px] border border-amber-100 rounded-full" />
+          <div className="absolute -top-10 -right-10 w-[400px] h-[400px] border border-amber-100 rounded-full" />
+        </div>
 
-          <div className="bg-yellow-400 text-gray-900 text-3xl font-bold px-10 py-4 rounded-full inline-block shadow-xl mb-8">
-            ₹1999 / sq.ft
-          </div>
+        <div className="relative max-w-6xl mx-auto px-6">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-xs text-slate-400 mb-10">
+            <Link href="/" className="hover:text-[#210568] transition-colors">Home</Link>
+            <span>/</span>
+            <Link href="/packages" className="hover:text-[#210568] transition-colors">Packages</Link>
+            <span>/</span>
+            <span className="text-slate-600 font-medium">Gold</span>
+          </nav>
 
-          <div>
-            <Link
-              href="#cta"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-md transition"
-            >
-              Get Started Today
-            </Link>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-amber-700 bg-amber-50 border border-amber-200 px-4 py-1.5 rounded-full mb-6 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                Most Popular
+              </span>
+
+              <h1 className="text-5xl lg:text-6xl font-bold text-slate-800 mb-4 leading-tight" style={{ fontFamily: "'Georgia', serif" }}>
+                Gold
+                <span className="block text-2xl font-normal text-slate-400 mt-1 tracking-wide" style={{ fontFamily: "sans-serif" }}>Premium Construction</span>
+              </h1>
+
+              <p className="text-slate-500 text-lg leading-relaxed mb-8 max-w-lg">
+                The sweet spot of quality and value — Fe500 steel, AAC blocks, premium fixtures and a 5-year warranty. Most of our clients choose Gold.
+              </p>
+
+              <div className="flex items-baseline gap-3 mb-8">
+                <span className="text-5xl font-bold text-amber-600" style={{ fontFamily: "'Georgia', serif" }}>₹1,999</span>
+                <span className="text-slate-400 text-lg">/ sq.ft</span>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-10">
+                {["5-year warranty", "Within 25 km radius", "Rainwater harvesting", "HVAC provisions"].map((b) => (
+                  <span key={b} className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
+                    <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    {b}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <Link href="/contact" className="group inline-flex items-center gap-2 bg-[#210568] hover:bg-[#01589e] text-white px-7 py-3.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-900/20 transition-all duration-200 hover:-translate-y-0.5">
+                  Request Custom Quote
+                  <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+                <Link href="/packages" className="inline-flex items-center gap-2 text-slate-500 hover:text-[#210568] border border-slate-200 hover:border-[#210568]/30 bg-white px-5 py-3.5 rounded-xl font-medium text-sm transition-all duration-200">
+                  ← All Packages
+                </Link>
+              </div>
+            </div>
+
+            {/* Visual card */}
+            <div className="relative">
+              <div className="bg-white rounded-2xl border border-amber-100 shadow-xl shadow-amber-100/60 p-8">
+                <div className="h-[3px] w-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 rounded-full mb-8" />
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { label: "Steel", value: "Fe500" },
+                    { label: "Cement", value: "Ultratech" },
+                    { label: "Walls", value: "AAC Blocks" },
+                    { label: "Windows", value: "UPVC" },
+                    { label: "Flooring", value: "Premium Vitrified" },
+                    { label: "Warranty", value: "5 Years" },
+                  ].map((item) => (
+                    <div key={item.label} className="bg-amber-50/60 rounded-xl p-4">
+                      <p className="text-xs text-amber-700/60 uppercase tracking-wider font-medium mb-1">{item.label}</p>
+                      <p className="text-sm font-bold text-slate-700">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-2xl px-5 py-3 shadow-lg">
+                <p className="text-xs text-amber-100 uppercase tracking-wider">Starting at</p>
+                <p className="text-xl font-bold">₹1,999/sqft</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ================= FEATURES ================= */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-6 text-blue-900">
-            Premium Features
-          </h2>
-          <p className="text-center max-w-2xl mx-auto mb-14">
-            Our Gold Package includes high-quality materials and premium
-            finishes for a luxurious result.
-          </p>
+      {/* ── SPECS ACCORDION ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-amber-700 bg-amber-50 border border-amber-100 px-4 py-1.5 rounded-full mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              Full Specifications
+            </span>
+            <h2 className="text-3xl font-bold text-slate-800" style={{ fontFamily: "'Georgia', serif" }}>What's Included</h2>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-
-            {features.map((item, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition"
-              >
-                <div className="text-yellow-500 text-4xl mb-4">
-                  {item.icon}
+          <div className="max-w-3xl mx-auto space-y-3">
+            {specs.map((sec, i) => (
+              <div key={i} className="rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+                <button
+                  onClick={() => setOpenSection(openSection === i ? null : i)}
+                  className="w-full flex items-center justify-between px-6 py-5 text-left bg-white hover:bg-amber-50/30 transition-colors duration-150"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-amber-600">{sec.icon}</span>
+                    <span className="font-semibold text-slate-800">{sec.category}</span>
+                  </div>
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${openSection === i ? "bg-amber-500 border-amber-500 rotate-45" : "border-slate-200"}`}>
+                    <svg className={`w-3 h-3 transition-colors ${openSection === i ? "text-white" : "text-slate-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                  </div>
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${openSection === i ? "max-h-96" : "max-h-0"}`}>
+                  <div className="px-6 pb-5 bg-amber-50/20">
+                    <div className="pt-2 grid sm:grid-cols-2 gap-2">
+                      {sec.items.map((item, j) => (
+                        <div key={j} className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-slate-100">
+                          <svg className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                          </svg>
+                          <div>
+                            <p className="text-xs text-slate-400 font-medium">{item.label}</p>
+                            <p className="text-sm text-slate-700 font-semibold">{item.value}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-xl mb-3 text-blue-900">
-                  {item.title}
-                </h3>
-                <p>{item.desc}</p>
               </div>
             ))}
-
           </div>
         </div>
       </section>
 
-      {/* ================= COMPARISON ================= */}
-      <section className="py-20 bg-gray-100">
-        <div className="container mx-auto px-6 overflow-x-auto">
-          <h2 className="text-3xl font-bold text-center mb-10 text-blue-900">
-            Why Choose Gold?
-          </h2>
-
-          <table className="w-full bg-white rounded-lg shadow-md text-center">
-            <thead className="bg-blue-900 text-white">
-              <tr>
-                <th className="p-4">Feature</th>
-                <th className="p-4">Standard</th>
-                <th className="p-4">Gold Package</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparison.map((row, i) => (
-                <tr key={i} className="border-b">
-                  <td className="p-4 font-semibold text-blue-900 text-left">
-                    {row.feature}
-                  </td>
-                  <td className="p-4">{row.standard}</td>
-                  <td className="p-4 text-yellow-600 font-semibold flex justify-center items-center gap-2">
-                    <FaCheck /> {row.gold}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* ── COMPARISON STRIP ── */}
+      <section className="py-16 px-6 bg-gradient-to-br from-amber-50/40 to-white">
+        <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
+          {[
+            { tier: "Silver", price: "₹1,599", active: false, href: "/packages/silver", note: "Essential" },
+            { tier: "Gold", price: "₹1,999", active: true, href: "/packages/gold", note: "You are here" },
+            { tier: "Platinum", price: "₹2,700", active: false, href: "/packages/platinum", note: "Luxury" },
+          ].map((t) => (
+            <Link
+              key={t.tier}
+              href={t.href}
+              className={`rounded-2xl p-5 text-center border transition-all duration-200 hover:-translate-y-1 ${t.active ? "bg-gradient-to-br from-amber-500 to-amber-600 text-white border-amber-400 shadow-lg shadow-amber-200" : "bg-white text-slate-700 border-slate-100 hover:border-amber-200 hover:shadow-md"}`}
+            >
+              <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${t.active ? "text-amber-100" : "text-slate-400"}`}>{t.note}</p>
+              <p className="text-xl font-bold mb-1" style={{ fontFamily: "'Georgia', serif" }}>{t.tier}</p>
+              <p className={`text-sm font-semibold ${t.active ? "text-amber-100" : "text-slate-500"}`}>{t.price}/sqft</p>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
-      <section
-        id="cta"
-        className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20 text-center"
-      >
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Build Your Dream Project?
-          </h2>
-
-          <p className="mb-8 opacity-90">
-            Get started with our premium Gold Package today
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <Benefit icon={<FaShieldAlt />} text="5-year warranty" />
-            <Benefit icon={<FaTruck />} text="25 km radius coverage" />
-            <Benefit icon={<FaCogs />} text="Customization available" />
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6">
-            <Link
-              href="/contact"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-md transition"
-            >
-              Request Custom Quote
-            </Link>
-
-            <Link
-              href="/packages"
-              className="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-md transition"
-            >
-              ← Back to Packages
-            </Link>
+      {/* ── CTA ── */}
+      <section className="py-20 px-6">
+        <div className="relative max-w-3xl mx-auto bg-gradient-to-br from-[#210568] to-[#01589e] rounded-3xl p-12 text-center overflow-hidden text-white shadow-2xl shadow-blue-900/30">
+          <div className="absolute -top-20 -right-20 w-56 h-56 bg-white/5 rounded-full pointer-events-none" />
+          <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-white/5 rounded-full pointer-events-none" />
+          <div className="relative">
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "'Georgia', serif" }}>Build Your Dream Home</h2>
+            <p className="text-blue-200 mb-8 max-w-md mx-auto text-sm leading-relaxed">Gold is our most popular choice. Get a detailed quote tailored to your plot size and requirements.</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link href="/contact" className="group inline-flex items-center gap-2 bg-white text-[#210568] px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-amber-50 transition-all duration-200 hover:-translate-y-0.5 shadow-lg">
+                Request Free Estimate
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+              <Link href="/packages" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3.5 rounded-xl font-medium text-sm transition-all duration-200">
+                Compare Packages
+              </Link>
+            </div>
           </div>
         </div>
       </section>
     </main>
-  );
-}
-
-/* ================= DATA ================= */
-
-const features = [
-  {
-    icon: <FaBuilding />,
-    title: "Civil Works",
-    desc: "Fe500 grade steel (JSW / Jai Bharat), Ultratech Cement, AAC Blocks, and premium shuttering and plaster.",
-  },
-  {
-    icon: <FaBath />,
-    title: "Bathroom",
-    desc: "Premium ceramic wall & floor tiles with Jaguar / Hindware premium sanitary fixtures.",
-  },
-  {
-    icon: <FaBolt />,
-    title: "Electrical",
-    desc: "Polycab premium FRLS wires, Havells switches, and extra power points.",
-  },
-  {
-    icon: <FaDoorOpen />,
-    title: "Doors & Windows",
-    desc: "Hardwood frame with veneer finish and UPVC windows with better insulation.",
-  },
-  {
-    icon: <FaUtensils />,
-    title: "Kitchen",
-    desc: "Granite countertop, designer tiles, and modular kitchen with chimney provision.",
-  },
-  {
-    icon: <FaPaintRoller />,
-    title: "Flooring & Painting",
-    desc: "Premium vitrified tiles and Asian Royale acrylic emulsion paints.",
-  },
-];
-
-const comparison = [
-  { feature: "Steel Quality", standard: "Fe415", gold: "Fe500 (JSW / Jai Bharat)" },
-  { feature: "Cement", standard: "ACC / Ambuja", gold: "Ultratech Cement" },
-  { feature: "Electrical", standard: "Finolex/Anchor", gold: "Polycab Premium" },
-  { feature: "Switches", standard: "Anchor/L&T", gold: "Havells" },
-  { feature: "Sanitary", standard: "Parryware/Johnson", gold: "Jaguar/Hindware Premium" },
-  { feature: "Windows", standard: "Aluminum Sliding", gold: "UPVC with Insulation" },
-  { feature: "Warranty", standard: "3 Years", gold: "5 Years Extended" },
-];
-
-/* ================= BENEFIT COMPONENT ================= */
-
-function Benefit({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <div className="bg-white/10 px-6 py-3 rounded-full flex items-center gap-2">
-      <span className="text-yellow-400">{icon}</span>
-      <span>{text}</span>
-    </div>
   );
 }
