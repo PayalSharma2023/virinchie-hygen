@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Gallery from "@/components/media/Gallery";
 import Image from "next/image";
-
+import Breadcrumb from "@/components/layout/BreadCrumb";
 export const metadata: Metadata = {
   title: "Media Gallery | Virinchie Hygen Engineering Consultants",
   description:
@@ -41,6 +41,7 @@ export default function MediaPage() {
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-200/30 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-6 py-20 w-full">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Media" }]} />
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 bg-white/80 border border-sky-100 px-4 py-1.5 rounded-full mb-6 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
             Our Work in Photos

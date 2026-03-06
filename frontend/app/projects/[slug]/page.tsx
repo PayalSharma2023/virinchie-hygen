@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import Link from "next/link"
 import ProjectDetail from "@/components/projects/ProjectDetail"
 import { projects } from "@/lib/data/projects"
+import Breadcrumb from "@/components/layout/BreadCrumb"
 
 export default function ProjectDetailPage() {
   const { slug } = useParams()
@@ -49,7 +50,7 @@ export default function ProjectDetailPage() {
 
       {/* Back breadcrumb */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-8">
-        <Link
+        {/* <Link
           href="/projects"
           className="group inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-500 transition-colors duration-200"
         >
@@ -57,7 +58,8 @@ export default function ProjectDetailPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
           Back to Projects
-        </Link>
+        </Link> */}
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: project.title }]} />
       </div>
 
       {/* Project detail component */}

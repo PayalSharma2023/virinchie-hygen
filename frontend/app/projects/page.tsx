@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProjectGrid from "@/components/projects/ProjectGrid";
 import Image from "next/image";
+import Breadcrumb from "@/components/layout/BreadCrumb";
 
 export const metadata: Metadata = {
   title: "Projects | Virinchie Hygen Engineering Consultants Pvt. Ltd.",
@@ -30,6 +31,7 @@ export default function ProjectsPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-200/20 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-6 py-20 w-full">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 bg-white/80 border border-sky-100 px-4 py-1.5 rounded-full mb-8 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
             Our Portfolio

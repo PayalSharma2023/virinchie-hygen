@@ -30,3 +30,88 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/*
+ * DARK MODE CONTRAST FIXES (fix i)
+ * Add these rules to your existing globals.css
+ * They override Tailwind's default dark mode colours throughout the site.
+ */
+
+/* ── Base body colours ── */
+.dark body {
+  background-color: #0f172a; /* slate-900 */
+  color: #e2e8f0;            /* slate-200 — WCAG AA compliant on dark bg */
+}
+
+/* ── Headings ── */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #f1f5f9; /* slate-100 */
+}
+
+/* ── Body text ── */
+.dark p {
+  color: #cbd5e1; /* slate-300 — contrast ratio 7:1+ on slate-900 */
+}
+
+/* ── Muted / secondary text ── */
+.dark .text-slate-400 { color: #94a3b8; }   /* passes AA */
+.dark .text-slate-500 { color: #94a3b8; }   /* boost to AA level */
+.dark .text-slate-600 { color: #cbd5e1; }   /* boost to AAA */
+
+/* ── Card / panel backgrounds ── */
+.dark .bg-white      { background-color: #1e293b; } /* slate-800 */
+.dark .bg-slate-50   { background-color: #1e293b; }
+.dark .bg-slate-100  { background-color: #334155; } /* slate-700 */
+
+/* ── Borders ── */
+.dark .border-slate-100 { border-color: #334155; }
+.dark .border-slate-200 { border-color: #475569; }
+
+/* ── Inputs ── */
+.dark input, .dark textarea, .dark select {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+.dark input::placeholder, .dark textarea::placeholder {
+  color: #64748b; /* slate-500 — still readable, not invisible */
+}
+
+/* ── Nav / header ── */
+.dark nav a {
+  color: #cbd5e1;
+}
+.dark nav a:hover {
+  color: #f1f5f9;
+}
+
+/* ── Gradient section overrides in dark mode ── */
+.dark .from-sky-50   { --tw-gradient-from: #0c1a2e; }
+.dark .to-teal-50    { --tw-gradient-to: #0c1a2e;   }
+.dark .from-slate-50 { --tw-gradient-from: #0f172a; }
+.dark .to-white      { --tw-gradient-to: #0f172a;   }
+
+
+/*
+ * HEADER GAP FIX (fix xxi)
+ * The 3px gradient accent bar at top of header was creating a visual gap
+ * between the bar and the page content below the fixed header.
+ * Solution: ensure the header is position:fixed with no top margin/gap,
+ * and page content starts at the correct offset.
+ */
+
+/* Remove any gap between browser top and the header */
+header {
+  top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* If using a fixed header, ensure first page section clears it correctly */
+/* (The pt-32 already applied to hero sections in page files covers this) */
+
+/*
+ * SCROLLBAR HIDE UTILITY
+ * Used on the projects filter tabs overflow-x scroll
+ */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

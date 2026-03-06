@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
+import Breadcrumb from "@/components/layout/BreadCrumb";
 const specs = [
   {
     category: "Structure & Civil",
@@ -36,9 +36,10 @@ const specs = [
   {
     category: "Kitchen",
     icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5M6 10.608v8.137A2.25 2.25 0 0 0 8.25 21h7.5A2.25 2.25 0 0 0 18 18.745V10.608" />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M4 3v7a4 4 0 0 0 8 0V3M8 21v-7M16 3v18M20 3v6a2 2 0 0 1-4 0V3" />
+  </svg>
     ),
     items: [
       { label: "Counter", value: "Italian marble countertop" },
@@ -78,9 +79,12 @@ const specs = [
   {
     category: "Bathroom",
     icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M3 12h13a4 4 0 0 0-4-4h-1V5a2 2 0 1 0-4 0v3H6a3 3 0 0 0-3 3v1z"/>
+    <path strokeLinecap="round" strokeLinejoin="round"
+      d="M16 12v6M19 15v3M13 15v3M10 15v3"/>
+  </svg>
     ),
     items: [
       { label: "Sanitaryware", value: "Kohler / Grohe" },
@@ -92,9 +96,24 @@ const specs = [
   {
     category: "Special & Smart Features",
     icon: (
-      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-      </svg>
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-5 h-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.8}
+    >
+      {/* Rays */}
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+      
+      {/* Bulb */}
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 18h6M10 22h4M12 6a5 5 0 0 0-3 9c.6.45 1 1.1 1 1.8V18h4v-1.2c0-.7.4-1.35 1-1.8a5 5 0 0 0-3-9z"
+      />
+    </svg>
     ),
     items: [
       { label: "Home Automation", value: "Full smart home readiness" },
@@ -112,7 +131,7 @@ export default function PlatinumPackagePage() {
     <main className="font-sans bg-white text-slate-800">
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 py-24 text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 py-10 text-white">
         {/* Subtle grid overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-5"
           style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
@@ -120,14 +139,10 @@ export default function PlatinumPackagePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-900/20 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-6">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Packages", href: "/packages" }, { label: "Platinum" }]} />
+
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-slate-400 mb-10">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/packages" className="hover:text-white transition-colors">Packages</Link>
-            <span>/</span>
-            <span className="text-slate-200 font-medium">Platinum</span>
-          </nav>
+          
 
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>

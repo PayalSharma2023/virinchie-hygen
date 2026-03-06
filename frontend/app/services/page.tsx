@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import Breadcrumb from "@/components/layout/BreadCrumb";
 // Lightweight scroll-reveal (no AOS needed)
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -210,6 +210,7 @@ export default function ServicesPage() {
         <div className="absolute top-10 right-10 w-80 h-80 bg-sky-200/30 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-6 py-20">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
           <Reveal>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 bg-white/80 border border-sky-100 px-4 py-1.5 rounded-full mb-8 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />

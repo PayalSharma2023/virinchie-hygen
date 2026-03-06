@@ -17,7 +17,7 @@ export default function MapWithDirections() {
 
         <iframe
           title="Virinchie Hygen Office Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3444.428123214017!2d76.86283631508407!3d30.385656981833007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391041ecfe3a521f%3A0x83447e02caaa8a03!2sDefence%20Colony%2C%20Ambala%20Cantt%2C%20Haryana%20133010!5e0!3m2!1sen!2sin!4v1700000000000"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27672.2!2d77.1734!3d31.1048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3904e1db5b9b7a07%3A0x3a90e5a7a8ded1a0!2sShimla%2C+Himachal+Pradesh!5e0!3m2!1sen!2sin!4v1"
           width="100%"
           height="100%"
           style={{ border: 0 }}

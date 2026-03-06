@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-
+import Breadcrumb from "@/components/layout/BreadCrumb";
 export const metadata: Metadata = {
   title: "Packages | Virinchie Hygen Engineering Consultants",
   description:
@@ -205,10 +205,11 @@ export default function PackagesPage() {
       {/* ══════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════ */}
-      <section className="relative py-24 bg-gradient-to-br from-sky-50 via-white to-teal-50 overflow-hidden">
+      <section className="relative py-14 bg-gradient-to-br from-sky-50 via-white to-teal-50 overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-sky-200/30 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-200/20 rounded-full blur-[80px] pointer-events-none" />
         <div className="relative max-w-6xl mx-auto px-6 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Packages", href: "/packages" }]} />
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 bg-white/80 border border-sky-100 px-4 py-1.5 rounded-full mb-8 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
             How We Engage

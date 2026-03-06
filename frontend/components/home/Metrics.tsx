@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 
 const stats = [
   {
-    value: 50,
+    value: 20,
     suffix: '+',
     label: 'Projects Completed',
     icon: (
@@ -18,7 +18,7 @@ const stats = [
     text: 'text-sky-600',
   },
   {
-    value: 6,
+    value: 4,
     suffix: ' Yrs',
     label: 'Years of Experience',
     icon: (
@@ -32,7 +32,7 @@ const stats = [
     text: 'text-teal-600',
   },
   {
-    value: 100,
+    value: 10,
     suffix: '+',
     label: 'Happy Clients',
     icon: (

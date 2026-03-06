@@ -157,7 +157,7 @@ export default function Footer() {
       <div className="border-t border-white/[0.06] px-6 py-5">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/30">
           <p className="text-slate-500 text-xs">
-            © {new Date().getFullYear()} Virinchie Hygen Engineering Consultants Pvt. Ltd. All rights reserved.
+            © {currentYear} Virinchie Hygen Engineering Consultants Pvt. Ltd. All rights reserved.
           </p>
 
           <div className="flex items-center gap-4">

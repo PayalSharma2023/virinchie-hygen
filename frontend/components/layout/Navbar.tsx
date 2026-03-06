@@ -43,8 +43,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.08)] py-0"
-            : "bg-[#F7F7F7] py-1"
+            ? "bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.08)] mt-[-4px]"
+            : "bg-[#F7F7F7] py-0"
         }`}
       >
         {/* Top accent bar */}
@@ -89,7 +89,7 @@ export default function Navbar() {
                       className={`relative flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-md transition-all duration-200 group ${
                         isActive
                           ? "text-[#210568] font-semibold bg-blue-50"
-                          : "text-gray-700 hover:text-[#01589e] hover:bg-gray-100"
+                          : "text-black hover:text-[#01589e] hover:bg-gray-100"
                       }`}
                     >
                       {link.name}

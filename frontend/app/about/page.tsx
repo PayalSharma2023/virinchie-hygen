@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import Breadcrumb from "@/components/layout/BreadCrumb";
 // Simple scroll-reveal hook (replaces AOS dependency)
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -96,7 +96,8 @@ export default function AboutPage() {
         {/* Decorative orb */}
         <div className="absolute top-10 right-10 w-72 h-72 bg-sky-200/30 rounded-full blur-[80px] pointer-events-none" />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-20">
+        <div className="relative max-w-6xl mx-auto px-6 py-14">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About" }]} />
           <Reveal>
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 bg-white/80 border border-sky-100 px-4 py-1.5 rounded-full mb-8 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -154,7 +155,7 @@ export default function AboutPage() {
               From hydrological modeling to GIS-based studies, we combine global standards with
               deep local expertise to serve mountain cities and beyond.
             </p>
-            <Link href="/contact" className="group inline-flex items-center gap-2 bg-[#210568] hover:bg-[#01589e] text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-lg shadow-blue-100 transition-all duration-200 hover:-translate-y-0.5">
+            <Link href="/projects" className="group inline-flex items-center gap-2 bg-[#210568] hover:bg-[#01589e] text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-lg shadow-blue-100 transition-all duration-200 hover:-translate-y-0.5">
               Learn More
               <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
             </Link>
