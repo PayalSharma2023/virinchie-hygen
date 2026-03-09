@@ -19,7 +19,7 @@ const stats = [
   },
   {
     value: 4,
-    suffix: ' Yrs',
+    suffix: '+ Yrs',
     label: 'Years of Experience',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>

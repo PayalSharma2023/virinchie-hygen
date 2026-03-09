@@ -24,6 +24,8 @@ export const COMPANY_INFO = {
     saturday: "9:00 AM - 5:00 PM",
     sunday: "Closed",
   },
+  mapsUrl:
+    "https://www.google.com/maps/search/Shimla,+Himachal+Pradesh,+India/@31.1048,77.1734,14z",
 } as const;
 
 // export const NAV_LINKS = [
@@ -44,22 +46,32 @@ export const NAV_LINKS = [
     path: "/services",
     dropdown: [
       { name: "All Services", path: "/services" },
-      { name: "Surveying & GIS", path: "/services#survey-gis" },
-      {
-        name: "Water Supply & Infrastructure",
-        path: "/services#water-infrastructure",
-      },
-      { name: "DPR & Project Reports", path: "/services#dpr-project-reports" },
-      { name: "Project Planning & PMC", path: "/services#project-management" },
-      {
-        name: "Environmental & EIA Services",
-        path: "/services#environmental-eia",
-      },
-      {
-        name: "Architectural & Interior Design",
-        path: "/services#architecture-interior",
-      },
-      { name: "CAD & Technical Support", path: "/services#cad-support" },
+      { name: "Hydrological Modeling", path: "/services#hydrology" },
+      { name: "Environmental Consultancy", path: "/services#environmental-eia" },
+      { name: "BIM", path: "/services#architecture-interior" },
+      { name: "Infrastructure & Structural", path: "/services#water-infrastructure" },
+      { name: "Water Supply & Wastewater", path: "/services#dpr-project-reports" },
+      { name: "Solid Waste Management", path: "/services#waste" },
+      { name: "Renewable Energy", path: "/services#energy" },
+      { name: "Project Management & PMC", path: "/services#project-management" },
+      { name: "GIS & Remote Sensing", path: "/services#survey-gis" },
+      { name: "Custom Engineering", path: "/services#cad-support" },
+      // { name: "Surveying & GIS", path: "/services#survey-gis" },
+      // {
+      //   name: "Water Supply & Infrastructure",
+      //   path: "/services#water-infrastructure",
+      // },
+      // { name: "DPR & Project Reports", path: "/services#dpr-project-reports" },
+      // { name: "Project Planning & PMC", path: "/services#project-management" },
+      // {
+      //   name: "Environmental & EIA Services",
+      //   path: "/services#environmental-eia",
+      // },
+      // {
+      //   name: "Architectural & Interior Design",
+      //   path: "/services#architecture-interior",
+      // },
+      // { name: "CAD & Technical Support", path: "/services#cad-support" },
     ],
   },
   {

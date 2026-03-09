@@ -4,17 +4,43 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/BreadCrumb";
-// Lightweight scroll-reveal (no AOS needed)
-function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.1 });
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
+
   return (
-    <div ref={ref} className={className} style={{ transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`, opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(24px)" }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(24px)",
+      }}
+    >
       {children}
     </div>
   );
@@ -22,10 +48,16 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
 
 const services = [
   {
+    hash: "hydrology",
     title: "Hydrological Modeling",
     category: "Hydrology",
     desc: "Advanced flood, rainfall, and watershed studies using state-of-the-art simulation tools for climate-resilient planning.",
-    points: ["Flood risk assessment & mapping", "HEC-HMS & HEC-RAS modeling", "Rainfall-runoff analysis", "Stormwater management design"],
+    points: [
+      "Flood risk assessment & mapping",
+      "HEC-HMS & HEC-RAS modeling",
+      "Rainfall-runoff analysis",
+      "Stormwater management design",
+    ],
     link: "/services/hydrology",
     color: "from-sky-400 to-cyan-400",
     bg: "bg-sky-50",
@@ -39,10 +71,16 @@ const services = [
     ),
   },
   {
+    hash: "environmental-eia",
     title: "Environmental Consultancy",
     category: "Environment",
     desc: "Comprehensive solutions for environmental impact, sustainability planning, and green infrastructure development.",
-    points: ["Environmental Impact Assessments (EIA)", "Sustainability planning & reporting", "Nature-based solution design", "Compliance documentation"],
+    points: [
+      "Environmental Impact Assessments (EIA)",
+      "Sustainability planning & reporting",
+      "Nature-based solution design",
+      "Compliance documentation",
+    ],
     link: "/services/environment",
     color: "from-teal-400 to-emerald-400",
     bg: "bg-teal-50",
@@ -55,10 +93,40 @@ const services = [
     ),
   },
   {
+    hash: "architecture-interior",
+    title: "Building Information Modeling (BIM)",
+    category: "BIM",
+    desc: "Integrated digital modeling and data-driven workflows that enhance planning, design coordination, clash detection, and lifecycle management.",
+    points: [
+      "3D parametric modeling for architecture, structure & MEP",
+      "Clash detection & interdisciplinary coordination",
+      "4D scheduling & 5D cost estimation",
+      "As-built modeling & facility management support",
+    ],
+    link: "/services/bim",
+    color: "from-cyan-400 to-blue-500",
+    bg: "bg-cyan-50",
+    border: "border-cyan-100",
+    text: "text-cyan-600",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h3l3 8h8l3-8h3" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v7m0 4v1" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 14h8" />
+      </svg>
+    ),
+  },
+  {
+    hash: "water-infrastructure",
     title: "Infrastructure & Structural Design",
     category: "Civil",
     desc: "Specialized engineering for dams, barrages, bridges, and earthquake-resistant buildings.",
-    points: ["Hydraulic structure design", "Earthquake-resistant buildings", "Slope stabilization solutions", "Infrastructure rehabilitation"],
+    points: [
+      "Hydraulic structure design",
+      "Earthquake-resistant buildings",
+      "Slope stabilization solutions",
+      "Infrastructure rehabilitation",
+    ],
     link: "/services/infrastructure",
     color: "from-blue-400 to-indigo-400",
     bg: "bg-blue-50",
@@ -71,10 +139,16 @@ const services = [
     ),
   },
   {
+    hash: "dpr-project-reports",
     title: "Water Supply & Wastewater",
     category: "Water",
     desc: "Planning, design, and optimization of water supply and sanitation systems.",
-    points: ["Water treatment plant design", "Distribution network optimization", "Wastewater treatment solutions", "Recycling & reuse systems"],
+    points: [
+      "Water treatment plant design",
+      "Distribution network optimization",
+      "Wastewater treatment solutions",
+      "Recycling & reuse systems",
+    ],
     link: "/services/water",
     color: "from-cyan-400 to-sky-400",
     bg: "bg-cyan-50",
@@ -87,10 +161,16 @@ const services = [
     ),
   },
   {
+    hash: "waste",
     title: "Solid Waste Management",
     category: "Waste",
     desc: "Sustainable waste collection, processing, and disposal systems for cleaner communities.",
-    points: ["Waste collection system design", "Material recovery facilities", "Landfill design & management", "Waste-to-energy solutions"],
+    points: [
+      "Waste collection system design",
+      "Material recovery facilities",
+      "Landfill design & management",
+      "Waste-to-energy solutions",
+    ],
     link: "/services/waste",
     color: "from-emerald-400 to-green-400",
     bg: "bg-emerald-50",
@@ -103,10 +183,16 @@ const services = [
     ),
   },
   {
+    hash: "energy",
     title: "Renewable Energy Solutions",
     category: "Energy",
     desc: "Feasibility studies and integration planning for clean energy infrastructure.",
-    points: ["Solar energy feasibility studies", "Micro-hydro power assessments", "Wind energy potential analysis", "Hybrid system design"],
+    points: [
+      "Solar energy feasibility studies",
+      "Micro-hydro power assessments",
+      "Wind energy potential analysis",
+      "Hybrid system design",
+    ],
     link: "/services/energy",
     color: "from-amber-400 to-orange-400",
     bg: "bg-amber-50",
@@ -119,10 +205,16 @@ const services = [
     ),
   },
   {
+    hash: "project-management",
     title: "Project Management & Consultancy",
     category: "PMC",
     desc: "Comprehensive project oversight for government and private clients.",
-    points: ["Feasibility studies & DPR", "Contract management", "Quality assurance & control", "Technical advisory services"],
+    points: [
+      "Feasibility studies & DPR",
+      "Contract management",
+      "Quality assurance & control",
+      "Technical advisory services",
+    ],
     link: "/services/pmc",
     color: "from-violet-400 to-purple-400",
     bg: "bg-violet-50",
@@ -135,10 +227,16 @@ const services = [
     ),
   },
   {
+    hash: "survey-gis",
     title: "GIS & Remote Sensing",
     category: "GIS",
     desc: "Precision mapping and spatial analysis using advanced geospatial tools.",
-    points: ["Spatial database development", "Land-use / land-cover mapping", "DEM processing & analysis", "Web GIS application development"],
+    points: [
+      "Spatial database development",
+      "Land-use / land-cover mapping",
+      "DEM processing & analysis",
+      "Web GIS application development",
+    ],
     link: "/services/gis",
     color: "from-rose-400 to-pink-400",
     bg: "bg-rose-50",
@@ -151,10 +249,16 @@ const services = [
     ),
   },
   {
+    hash: "cad-support",
     title: "Custom Engineering Solutions",
     category: "Custom",
     desc: "Tailored solutions for mountainous and environmentally sensitive regions.",
-    points: ["Site-specific engineering designs", "Adaptation to local conditions", "Multi-disciplinary integration", "Innovative problem-solving"],
+    points: [
+      "Site-specific engineering designs",
+      "Adaptation to local conditions",
+      "Multi-disciplinary integration",
+      "Innovative problem-solving",
+    ],
     link: "/contact",
     color: "from-slate-400 to-gray-400",
     bg: "bg-slate-50",
@@ -167,29 +271,6 @@ const services = [
       </svg>
     ),
   },
-  {
-  title: "Building Information Modeling (BIM)",
-  category: "BIM",
-  desc: "Integrated digital modeling and data‑driven workflows that enhance planning, design coordination, clash detection, and lifecycle management for infrastructure and building projects.",
-  points: [
-    "3D parametric modeling for architecture, structure & MEP",
-    "Clash detection & interdisciplinary coordination",
-    "4D scheduling & 5D cost estimation",
-    "As‑built modeling & facility management support"
-  ],
-  link: "/services/bim",
-  color: "from-cyan-400 to-blue-500",     // relatable engineering/design colors
-  bg: "bg-cyan-50",
-  border: "border-cyan-100",
-  text: "text-cyan-600",
-  icon: (
-    <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h3l3 8h8l3-8h3" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v7m0 4v1" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 14h8" />
-    </svg>
-  ),
-}
 ];
 
 const categories = ["All", ...Array.from(new Set(services.map((s) => s.category)))];
@@ -197,14 +278,33 @@ const categories = ["All", ...Array.from(new Set(services.map((s) => s.category)
 export default function ServicesPage() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered = activeCategory === "All" ? services : services.filter((s) => s.category === activeCategory);
+  const filtered =
+    activeCategory === "All"
+      ? services
+      : services.filter((s) => s.category === activeCategory);
+
+  // Handle direct URL hash on page load (e.g. /services#survey-gis)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#f0f7ff]">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50 ">
-          <Image src="/services.jpg" alt="Engineering Services" fill priority className="object-cover brightness-105 saturate-75" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/50">
+          <Image
+            src="/services.jpg"
+            alt="Engineering Services"
+            fill
+            priority
+            className="object-cover brightness-105 saturate-75"
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-sky-50/90 via-white/70 to-teal-50/85" />
         </div>
         <div className="absolute top-10 right-10 w-80 h-80 bg-sky-200/30 rounded-full blur-[100px] pointer-events-none" />
@@ -289,7 +389,11 @@ export default function ServicesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((s, i) => (
               <Reveal key={s.title} delay={i * 60}>
-                <div className={`group relative ${s.bg} border ${s.border} rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden h-full flex flex-col`}>
+                <div
+                  id={s.hash}
+                  style={{ scrollMarginTop: "88px" }}
+                  className={`group relative ${s.bg} border ${s.border} rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden h-full flex flex-col`}
+                >
                   {/* Gradient hover wash */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${s.color} opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300 rounded-2xl`} />
 
@@ -318,17 +422,6 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
-
-                  {/* Link */}
-                  {/* <Link
-                    href={s.link}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold ${s.text} group/link`}
-                  >
-                    Learn More
-                    <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </Link> */}
 
                   {/* Bottom accent */}
                   <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-1/2 bg-gradient-to-r ${s.color} rounded-full transition-all duration-500`} />
@@ -361,18 +454,27 @@ export default function ServicesPage() {
                 Partner with Virinchie Hygen for reliable, sustainable, and innovative solutions built for your unique challenges.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-6">
-                <Link href="/contact" className="group inline-flex items-center gap-2 bg-[#210568] hover:bg-[#01589e] text-white px-7 py-3.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-200/50 transition-all duration-200 hover:-translate-y-0.5">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 bg-[#210568] hover:bg-[#01589e] text-white px-7 py-3.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-200/50 transition-all duration-200 hover:-translate-y-0.5"
+                >
                   Contact Our Team
-                  <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                  <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
                 </Link>
               </div>
               <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400">
                 <a href="tel:+917018167926" className="flex items-center gap-1.5 hover:text-sky-500 transition-colors">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                  </svg>
                   +91 7018167926
                 </a>
                 <a href="mailto:info@virinchiehygen.com" className="flex items-center gap-1.5 hover:text-sky-500 transition-colors">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                  </svg>
                   info@virinchiehygen.com
                 </a>
               </div>

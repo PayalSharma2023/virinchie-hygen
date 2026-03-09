@@ -25,7 +25,7 @@ export const projects = [
     id: "2",
     title: "Rainwater Drainage & Retention Design — Urban Sector",
     slug: "rainwater-drainage-design",
-    category: "urban engineering",
+    category: "Environment",
     description:
       "Design and implementation support for urban rainwater drainage systems including retention basins and sustainable runoff reduction measures for high-density neighborhoods.",
     image: "/drainage.jpg",
@@ -47,7 +47,7 @@ export const projects = [
     id: "3",
     title: "Structural Vetting & Compliance Review",
     slug: "structural-vetting-review",
-    category: "structural engineering",
+    category: "GIS",
     description:
       "Expert structural vetting and compliance report for residential and mixed-use developments, ensuring adherence to safety codes and statutory guidelines.",
     image: "/impact.jpg",

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
 import { ChevronDown } from "lucide-react";
@@ -14,6 +14,7 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -21,13 +22,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setOpenDropdown(null);
   }, [pathname]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -37,6 +36,17 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleDropdownItemClick = (itemPath: string) => {
+    setOpenDropdown(null);
+    const [pagePath, hash] = itemPath.split("#");
+    if (hash && pathname === pagePath) {
+      // Already on the same page — smooth scroll directly
+      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(itemPath);
+    }
+  };
 
   return (
     <>
@@ -64,7 +74,10 @@ export default function Navbar() {
               />
             </div>
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="text-[#210568] font-bold text-sm uppercase tracking-wide" style={{ fontFamily: "'Georgia', serif" }}>
+              <span
+                className="text-[#210568] font-bold text-sm uppercase tracking-wide"
+                style={{ fontFamily: "'Georgia', serif" }}
+              >
                 Virinchie Hy<span className="text-red-600">gen</span>
               </span>
               <span className="text-[#01589e] text-xs uppercase tracking-widest font-medium text-[10px]">
@@ -77,7 +90,9 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
             {NAV_LINKS.map((link) => {
               const hasDropdown = "dropdown" in link && link.dropdown && link.dropdown.length > 0;
-              const isActive = pathname === link.path || (hasDropdown && link.dropdown!.some((d) => pathname === d.path));
+              const isActive =
+                pathname === link.path ||
+                (hasDropdown && link.dropdown!.some((d) => pathname === d.path.split("#")[0]));
               const isOpen = openDropdown === link.name;
 
               if (hasDropdown) {
@@ -97,7 +112,6 @@ export default function Navbar() {
                         size={14}
                         className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                       />
-                      {/* Active underline */}
                       <span
                         className={`absolute bottom-1 left-4 right-4 h-[2px] rounded-full bg-[#13baf6] transition-transform duration-300 origin-left ${
                           isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
@@ -115,15 +129,13 @@ export default function Navbar() {
                       }`}
                       style={{ transformOrigin: "top center" }}
                     >
-                      {/* Accent bar */}
                       <div className="h-[2px] w-full bg-gradient-to-r from-[#210568] via-[#01589e] to-[#13baf6]" />
                       <div className="py-1.5 px-1.5">
                         {link.dropdown!.map((item, i) => (
-                          <Link
+                          <button
                             key={item.path}
-                            href={item.path}
-                            onClick={() => setOpenDropdown(null)}
-                            className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-all duration-150 ${
+                            onClick={() => handleDropdownItemClick(item.path)}
+                            className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm w-full text-left transition-all duration-150 ${
                               i === 0
                                 ? "font-semibold text-[#210568] hover:bg-blue-50"
                                 : "text-gray-600 hover:text-[#01589e] hover:bg-gray-50"
@@ -133,7 +145,7 @@ export default function Navbar() {
                               <span className="w-1 h-1 rounded-full bg-[#13baf6] flex-shrink-0" />
                             )}
                             {item.name}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -189,33 +201,19 @@ export default function Navbar() {
             aria-expanded={isMobileMenuOpen}
           >
             <div className="relative w-5 h-4">
-              <span
-                className={`absolute left-0 w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMobileMenuOpen ? "top-[7px] rotate-45" : "top-0"
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-[7px] w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`absolute left-0 w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                  isMobileMenuOpen ? "top-[7px] -rotate-45" : "top-[14px]"
-                }`}
-              />
+              <span className={`absolute left-0 w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${isMobileMenuOpen ? "top-[7px] rotate-45" : "top-0"}`} />
+              <span className={`absolute left-0 top-[7px] w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100"}`} />
+              <span className={`absolute left-0 w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${isMobileMenuOpen ? "top-[7px] -rotate-45" : "top-[14px]"}`} />
             </div>
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Spacer */}
       <div className="h-[67px]" />
     </>
   );

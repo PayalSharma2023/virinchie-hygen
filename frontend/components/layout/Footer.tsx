@@ -117,10 +117,10 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                   </svg>
                 </div>
-                <p className="text-sm text-white/50 leading-relaxed">
+                <Link href={COMPANY_INFO.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-white/50  hover:text-sky-400 leading-relaxed">
                   {COMPANY_INFO.address.street}, {COMPANY_INFO.address.city},{" "}
                   {COMPANY_INFO.address.state}
-                </p>
+                </Link>
               </div>
 
               {/* Phone */}
@@ -161,8 +161,8 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <Link href="/blog" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">
-              Blog
+            <Link href="/blogs" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">
+              Blogs
             </Link>
             <span className="text-slate-700">·</span>
             <Link href="/contact" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">
@@ -172,7 +172,7 @@ export default function Footer() {
             {/* ─── Admin link — subtle, footer only ─── */}
             <Link
               href="/admin/login"
-              className="text-slate-700 hover:text-slate-500 text-[11px] transition-colors duration-200"
+              className="text-slate-500 hover:text-slate-500 text-[11px] transition-colors duration-200"
               title="Admin"
             >
               Admin

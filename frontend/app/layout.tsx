@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Virinchie Hygen Engineering Consultants Pvt. Ltd. - Ambala, Haryana",
-  description: "Virinchie Hygen Engineering Consultants provides civil and environmental engineering services in Ambala, Haryana.",
+  title: "Virinchie Hygen Engineering Consultants Pvt. Ltd. - Sharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh, India",
+  description: "Virinchie Hygen Engineering Consultants provides civil and environmental engineering services inSharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh.",
   icons: {
     icon: "/logo.jpeg",
   },
