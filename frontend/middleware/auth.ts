@@ -1,30 +1,30 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { verifyToken } from '@/lib/jwt';
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+/**
+ * Use this in API route handlers only.
+ * Returns null if auth passes, or a 401 NextResponse if it fails.
+ * NEVER calls NextResponse.next() — that is only valid in root middleware.ts
+ */
+export async function middleware(
+  request: NextRequest
+): Promise<NextResponse | null> {
+  const token = request.cookies.get('admin-token')?.value;
 
-  // Check if accessing admin routes (except login)
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
-    const token = request.cookies.get('admin-token')?.value;
-
-    // Redirect to login if no token
-    if (!token) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
+  if (!token) {
+    return NextResponse.json(
+      { error: 'Unauthorised — no token' },
+      { status: 401 }
+    );
   }
 
-  // Redirect from /admin to /admin/blogs if logged in
-  if (pathname === '/admin') {
-    return NextResponse.redirect(new URL('/admin/blogs', request.url));
+  const payload = verifyToken(token);
+  if (!payload) {
+    return NextResponse.json(
+      { error: 'Unauthorised — invalid or expired token' },
+      { status: 401 }
+    );
   }
 
-  return NextResponse.next();
+  return null; // ✅ auth passed — caller continues normally
 }
-
-// Configure which routes to run middleware on
-export const config = {
-  matcher: [
-    '/admin/:path*',
-  ],
-};

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/BreadCrumb";
+
 const specs = [
   {
     category: "Structure & Civil",
@@ -37,9 +38,8 @@ const specs = [
     category: "Kitchen",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-    <path strokeLinecap="round" strokeLinejoin="round"
-      d="M4 3v7a4 4 0 0 0 8 0V3M8 21v-7M16 3v18M20 3v6a2 2 0 0 1-4 0V3" />
-  </svg>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 3v7a4 4 0 0 0 8 0V3M8 21v-7M16 3v18M20 3v6a2 2 0 0 1-4 0V3" />
+      </svg>
     ),
     items: [
       { label: "Counter", value: "Italian marble countertop" },
@@ -80,11 +80,9 @@ const specs = [
     category: "Bathroom",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-    <path strokeLinecap="round" strokeLinejoin="round"
-      d="M3 12h13a4 4 0 0 0-4-4h-1V5a2 2 0 1 0-4 0v3H6a3 3 0 0 0-3 3v1z"/>
-    <path strokeLinecap="round" strokeLinejoin="round"
-      d="M16 12v6M19 15v3M13 15v3M10 15v3"/>
-  </svg>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h13a4 4 0 0 0-4-4h-1V5a2 2 0 1 0-4 0v3H6a3 3 0 0 0-3 3v1z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 12v6M19 15v3M13 15v3M10 15v3" />
+      </svg>
     ),
     items: [
       { label: "Sanitaryware", value: "Kohler / Grohe" },
@@ -96,24 +94,10 @@ const specs = [
   {
     category: "Special & Smart Features",
     icon: (
-      <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.8}
-    >
-      {/* Rays */}
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-      
-      {/* Bulb */}
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 18h6M10 22h4M12 6a5 5 0 0 0-3 9c.6.45 1 1.1 1 1.8V18h4v-1.2c0-.7.4-1.35 1-1.8a5 5 0 0 0-3-9z"
-      />
-    </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 18h6M10 22h4M12 6a5 5 0 0 0-3 9c.6.45 1 1.1 1 1.8V18h4v-1.2c0-.7.4-1.35 1-1.8a5 5 0 0 0-3-9z" />
+      </svg>
     ),
     items: [
       { label: "Home Automation", value: "Full smart home readiness" },
@@ -128,21 +112,18 @@ export default function PlatinumPackagePage() {
   const [openSection, setOpenSection] = useState<number | null>(0);
 
   return (
-    <main className="font-sans bg-white text-slate-800">
+    <main className="font-sans bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100">
 
-      {/* ── HERO ── */}
+      {/* ── HERO — always dark/slate branded ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 py-10 text-white">
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-5"
           style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="absolute top-0 right-0 w-96 h-96 bg-slate-500/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-900/20 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-6">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Packages", href: "/packages" }, { label: "Platinum" }]} />
-
-          {/* Breadcrumb */}
-          
+          {/* Force light breadcrumb — hero is always dark */}
+          <Breadcrumb theme="light" items={[{ label: "Home", href: "/" }, { label: "Packages", href: "/packages" }, { label: "Platinum" }]} />
 
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -219,44 +200,44 @@ export default function PlatinumPackagePage() {
       </section>
 
       {/* ── SPECS ACCORDION ── */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-slate-950">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-600 bg-slate-50 border border-slate-200 px-4 py-1.5 rounded-full mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-1.5 rounded-full mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
               Full Specifications
             </span>
-            <h2 className="text-3xl font-bold text-slate-800" style={{ fontFamily: "'Georgia', serif" }}>What's Included</h2>
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: "'Georgia', serif" }}>What's Included</h2>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-3">
             {specs.map((sec, i) => (
-              <div key={i} className="rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
+              <div key={i} className="rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md dark:hover:shadow-black/30 transition-shadow duration-200">
                 <button
                   onClick={() => setOpenSection(openSection === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left bg-white hover:bg-slate-50 transition-colors duration-150"
+                  className="w-full flex items-center justify-between px-6 py-5 text-left bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors duration-150"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-slate-600">{sec.icon}</span>
-                    <span className="font-semibold text-slate-800">{sec.category}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{sec.icon}</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-100">{sec.category}</span>
                   </div>
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${openSection === i ? "bg-slate-700 border-slate-700 rotate-45" : "border-slate-200"}`}>
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${openSection === i ? "bg-slate-700 border-slate-700 rotate-45" : "border-slate-200 dark:border-slate-600"}`}>
                     <svg className={`w-3 h-3 transition-colors ${openSection === i ? "text-white" : "text-slate-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${openSection === i ? "max-h-96" : "max-h-0"}`}>
-                  <div className="px-6 pb-5 bg-slate-50/40">
+                  <div className="px-6 pb-5 bg-slate-50/40 dark:bg-slate-800/40">
                     <div className="pt-2 grid sm:grid-cols-2 gap-2">
                       {sec.items.map((item, j) => (
-                        <div key={j} className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-slate-100">
-                          <svg className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <div key={j} className="flex items-start gap-3 bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-slate-100 dark:border-slate-700">
+                          <svg className="w-4 h-4 text-slate-500 dark:text-slate-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                           </svg>
                           <div>
                             <p className="text-xs text-slate-400 font-medium">{item.label}</p>
-                            <p className="text-sm text-slate-700 font-semibold">{item.value}</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-200 font-semibold">{item.value}</p>
                           </div>
                         </div>
                       ))}
@@ -270,28 +251,30 @@ export default function PlatinumPackagePage() {
       </section>
 
       {/* ── COMPARISON STRIP ── */}
-      <section className="py-16 px-6 bg-slate-50">
+      <section className="py-16 px-6 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
           {[
-            { tier: "Silver", price: "₹1,599", active: false, href: "/packages/silver", note: "Essential" },
-            { tier: "Gold", price: "₹1,999", active: false, href: "/packages/gold", note: "Popular" },
-            { tier: "Platinum", price: "₹2,700", active: true, href: "/packages/platinum", note: "You are here" },
+            { tier: "Silver",   price: "₹1,599", active: false, href: "/packages/silver",   note: "Essential" },
+            { tier: "Gold",     price: "₹1,999", active: false, href: "/packages/gold",     note: "Popular" },
+            { tier: "Platinum", price: "₹2,700", active: true,  href: "/packages/platinum", note: "You are here" },
           ].map((t) => (
-            <Link
-              key={t.tier}
-              href={t.href}
-              className={`rounded-2xl p-5 text-center border transition-all duration-200 hover:-translate-y-1 ${t.active ? "bg-gradient-to-br from-slate-700 to-slate-900 text-white border-slate-600 shadow-xl" : "bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:shadow-md"}`}
+            <Link key={t.tier} href={t.href}
+              className={`rounded-2xl p-5 text-center border transition-all duration-200 hover:-translate-y-1 ${
+                t.active
+                  ? "bg-gradient-to-br from-slate-700 to-slate-900 text-white border-slate-600 shadow-xl"
+                  : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md"
+              }`}
             >
-              <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${t.active ? "text-slate-400" : "text-slate-400"}`}>{t.note}</p>
+              <p className="text-xs font-bold uppercase tracking-widest mb-1 text-slate-400">{t.note}</p>
               <p className="text-xl font-bold mb-1" style={{ fontFamily: "'Georgia', serif" }}>{t.tier}</p>
-              <p className={`text-sm font-semibold ${t.active ? "text-slate-300" : "text-slate-500"}`}>{t.price}/sqft</p>
+              <p className={`text-sm font-semibold ${t.active ? "text-slate-300" : "text-slate-500 dark:text-slate-400"}`}>{t.price}/sqft</p>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-white dark:bg-slate-950">
         <div className="relative max-w-3xl mx-auto bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-12 text-center overflow-hidden text-white shadow-2xl">
           <div className="absolute -top-20 -right-20 w-56 h-56 bg-white/5 rounded-full pointer-events-none" />
           <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-white/5 rounded-full pointer-events-none" />

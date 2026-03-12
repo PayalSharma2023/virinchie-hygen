@@ -1,115 +1,66 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface IBlog extends Document {
-  title: string;
   slug: string;
-  content: string;
+  title: string;
   excerpt: string;
-  featuredImage: {
-    url: string;
-    publicId: string;
-  };
+  category: string;
   author: string;
-  categories: string[];
+  authorRole: string;
+  authorBio: string;
+  date: string;
+  readTime: string;
+  coverColor: string;
+  featured: boolean;
+  featuredImage: { url: string; alt: string; publicId: string };
   tags: string[];
+  relatedSlugs: string[];
+  content: any[];
   published: boolean;
   publishedAt?: Date;
-  
-  // SEO Fields
+  views: number;
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string[];
-  ogImage?: string;
-  
   createdAt: Date;
   updatedAt: Date;
 }
 
-const BlogSchema: Schema = new Schema(
+
+const BlogSchema = new Schema<IBlog>(
   {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    excerpt: {
-      type: String,
-      required: true,
-      maxlength: 300,
-    },
+    slug:        { type: String, required: true, unique: true, trim: true, lowercase: true },
+    title:       { type: String, required: true, trim: true },
+    excerpt:     { type: String, required: true, maxlength: 300 },
+    category:    { type: String, required: true, trim: true },
+    author:      { type: String, required: true, default: 'Admin' },
+    authorRole:  { type: String, default: '' },
+    authorBio:   { type: String, default: '' },
+    date:        { type: String, default: '' },       // e.g. "12 Feb 2025"
+    readTime:    { type: String, default: '' },       // e.g. "8 min read"
+    coverColor:  { type: String, default: 'from-sky-400 to-cyan-600' },
+    featured:    { type: Boolean, default: false },
     featuredImage: {
-      url: {
-        type: String,
-        required: true,
-      },
-      publicId: {
-        type: String,
-        required: true,
-      },
+      url: { type: String, required: true },
+      alt: { type: String, default: '' },
+      publicId: { type: String, required: true }, 
     },
-    author: {
-      type: String,
-      required: true,
-      default: 'Admin',
-    },
-    categories: {
-      type: [String],
-      default: [],
-    },
-    tags: {
-      type: [String],
-      default: [],
-    },
-    published: {
-      type: Boolean,
-      default: false,
-    },
-    publishedAt: {
-      type: Date,
-    },
-    
-    // SEO Fields
-    metaTitle: {
-      type: String,
-      required: true,
-      maxlength: 60,
-    },
-    metaDescription: {
-      type: String,
-      required: true,
-      maxlength: 160,
-    },
-    metaKeywords: {
-      type: [String],
-      default: [],
-    },
-    ogImage: {
-      type: String,
-    },
+    tags:         { type: [String], default: [] },
+    relatedSlugs: { type: [String], default: [] },
+    content:      { type: Schema.Types.Mixed, default: [] },
+    published:    { type: Boolean, default: false },
+    publishedAt:  { type: Date },
+    views:        { type: Number, default: 0 },
+    metaTitle:        { type: String, default: '' },
+    metaDescription:  { type: String, default: '' },
+    metaKeywords:     { type: [String], default: [] },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// Index for better query performance
-BlogSchema.index({ slug: 1 });
-BlogSchema.index({ published: 1, publishedAt: -1 });
-BlogSchema.index({ categories: 1 });
-BlogSchema.index({ tags: 1 });
+BlogSchema.index({ title: 'text', excerpt: 'text' });
 
 const Blog: Model<IBlog> =
-  mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema);
+  mongoose.models.Blog ?? mongoose.model<IBlog>('Blog', BlogSchema);
 
 export default Blog;

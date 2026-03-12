@@ -41,7 +41,6 @@ export default function Navbar() {
     setOpenDropdown(null);
     const [pagePath, hash] = itemPath.split("#");
     if (hash && pathname === pagePath) {
-      // Already on the same page — smooth scroll directly
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
     } else {
       router.push(itemPath);
@@ -53,8 +52,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.08)] mt-[-4px]"
-            : "bg-[#F7F7F7] py-0"
+            ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_20px_rgba(0,0,0,0.4)] mt-[-4px]"
+            : "bg-[#F7F7F7] dark:bg-slate-900 py-0"
         }`}
       >
         {/* Top accent bar */}
@@ -75,12 +74,12 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:flex flex-col leading-tight">
               <span
-                className="text-[#210568] font-bold text-sm uppercase tracking-wide"
+                className="text-[#210568] dark:text-sky-400 font-bold text-sm uppercase tracking-wide"
                 style={{ fontFamily: "'Georgia', serif" }}
               >
-                Virinchie Hy<span className="text-red-600">gen</span>
+                Virinchie Hy<span className="text-red-600 dark:text-red-400">gen</span>
               </span>
-              <span className="text-[#01589e] text-xs uppercase tracking-widest font-medium text-[10px]">
+              <span className="text-[#01589e] dark:text-sky-500 text-xs uppercase tracking-widest font-medium text-[10px]">
                 Engineering Consultants
               </span>
             </div>
@@ -103,8 +102,8 @@ export default function Navbar() {
                       onMouseEnter={() => setOpenDropdown(link.name)}
                       className={`relative flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-md transition-all duration-200 group ${
                         isActive
-                          ? "text-[#210568] font-semibold bg-blue-50"
-                          : "text-black hover:text-[#01589e] hover:bg-gray-100"
+                          ? "text-[#210568] dark:text-sky-400 font-semibold bg-blue-50 dark:bg-sky-900/40"
+                          : "text-slate-800 dark:text-slate-200 hover:text-[#01589e] dark:hover:text-sky-400 hover:bg-gray-100 dark:hover:bg-slate-800"
                       }`}
                     >
                       {link.name}
@@ -122,7 +121,7 @@ export default function Navbar() {
                     {/* Dropdown panel */}
                     <div
                       onMouseLeave={() => setOpenDropdown(null)}
-                      className={`absolute top-full left-0 mt-1 w-56 rounded-xl bg-white shadow-lg shadow-black/10 border border-gray-100 overflow-hidden transition-all duration-200 origin-top ${
+                      className={`absolute top-full left-0 mt-1 w-56 rounded-xl bg-white dark:bg-slate-800 shadow-lg shadow-black/10 dark:shadow-black/40 border border-gray-100 dark:border-slate-700 overflow-hidden transition-all duration-200 origin-top ${
                         isOpen
                           ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
                           : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
@@ -137,8 +136,8 @@ export default function Navbar() {
                             onClick={() => handleDropdownItemClick(item.path)}
                             className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm w-full text-left transition-all duration-150 ${
                               i === 0
-                                ? "font-semibold text-[#210568] hover:bg-blue-50"
-                                : "text-gray-600 hover:text-[#01589e] hover:bg-gray-50"
+                                ? "font-semibold text-[#210568] dark:text-sky-400 hover:bg-blue-50 dark:hover:bg-sky-900/40"
+                                : "text-gray-600 dark:text-slate-300 hover:text-[#01589e] dark:hover:text-sky-400 hover:bg-gray-50 dark:hover:bg-slate-700"
                             }`}
                           >
                             {i !== 0 && (
@@ -160,8 +159,8 @@ export default function Navbar() {
                   scroll={true}
                   className={`relative text-sm font-medium px-4 py-2 rounded-md transition-all duration-200 group ${
                     isActive
-                      ? "text-[#210568] font-semibold bg-blue-50"
-                      : "text-gray-700 hover:text-[#01589e] hover:bg-gray-100"
+                      ? "text-[#210568] dark:text-sky-400 font-semibold bg-blue-50 dark:bg-sky-900/40"
+                      : "text-slate-800 dark:text-slate-200 hover:text-[#01589e] dark:hover:text-sky-400 hover:bg-gray-100 dark:hover:bg-slate-800"
                   }`}
                 >
                   {link.name}
@@ -180,14 +179,14 @@ export default function Navbar() {
             <Link
               href="/jobs"
               scroll={true}
-              className="text-sm font-semibold text-[#210568] border-2 border-[#210568] px-4 py-2 rounded-lg hover:bg-[#210568] hover:text-white transition-all duration-200"
+              className="text-sm font-semibold text-[#210568] dark:text-sky-400 border-2 border-[#210568] dark:border-sky-500 px-4 py-2 rounded-lg hover:bg-[#210568] dark:hover:bg-sky-500 hover:text-white transition-all duration-200"
             >
               Our Careers
             </Link>
             <Link
               href="/contact"
               scroll={true}
-              className="text-sm font-semibold text-white bg-[#210568] px-4 py-2 rounded-lg hover:bg-[#01589e] hover:shadow-md hover:shadow-blue-200 transition-all duration-200 hover:-translate-y-[1px]"
+              className="text-sm font-semibold text-white bg-[#210568] dark:bg-sky-600 px-4 py-2 rounded-lg hover:bg-[#01589e] dark:hover:bg-sky-500 hover:shadow-md hover:shadow-blue-200 dark:hover:shadow-sky-900 transition-all duration-200 hover:-translate-y-[1px]"
             >
               Contact Us
             </Link>
@@ -196,7 +195,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[#210568] hover:bg-[#01589e] transition-colors flex-shrink-0"
+            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[#210568] dark:bg-sky-700 hover:bg-[#01589e] dark:hover:bg-sky-600 transition-colors flex-shrink-0"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
           >

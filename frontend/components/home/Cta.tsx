@@ -2,22 +2,18 @@ import Link from "next/link";
 
 export default function CTASection() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden bg-gradient-to-br from-[#0c3547] via-[#01589e] to-[#0e7ab5]">
-      {/* Decorative orbs */}
+    <section className="relative py-24 px-6 overflow-hidden bg-gradient-to-br from-[#0c3547] via-[#01589e] to-[#0e7ab5] dark:from-slate-900 dark:via-[#01589e]/80 dark:to-slate-900">
       <div className="absolute -top-20 -left-20 w-64 h-64 bg-sky-400/20 rounded-full blur-[80px] pointer-events-none" />
       <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-teal-400/20 rounded-full blur-[80px] pointer-events-none" />
-      {/* Subtle grid texture */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
 
       <div className="relative max-w-3xl mx-auto text-center">
-        {/* Badge */}
         <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-200 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-sky-300 animate-pulse" />
           Let's Build Together
@@ -32,8 +28,7 @@ export default function CTASection() {
         </h3>
 
         <p className="text-sky-100/80 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-          Let's talk about how we can tailor hydrology, environmental, and civil
-          solutions for your unique challenges.
+          Let's talk about how we can tailor hydrology, environmental, and civil solutions for your unique challenges.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">

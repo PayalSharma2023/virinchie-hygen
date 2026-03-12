@@ -14,10 +14,11 @@ export const COMPANY_INFO = {
     country: "India",
   },
   social: {
-    facebook: "https://facebook.com/virinchiehygen",
-    instagram: "https://instagram.com/virinchiehygen",
-    linkedin: "https://linkedin.com/company/virinchiehygen",
-    youtube: "https://youtube.com/@virinchiehygen",
+    // facebook: "https://facebook.com/virinchiehygen",
+    // instagram: "https://instagram.com/virinchiehygen",
+    linkedin:
+      "https://www.linkedin.com/company/virinchie-hygen-engineering-consultants-pvt-ltd",
+    // youtube: "https://youtube.com/@virinchiehygen",
   },
   businessHours: {
     weekdays: "9:00 AM - 7:00 PM",
@@ -26,6 +27,8 @@ export const COMPANY_INFO = {
   },
   mapsUrl:
     "https://www.google.com/maps/search/Shimla,+Himachal+Pradesh,+India/@31.1048,77.1734,14z",
+  mapsEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27672.2!2d77.1734!3d31.1048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3904e1db5b9b7a07%3A0x3a90e5a7a8ded1a0!2sShimla%2C+Himachal+Pradesh!5e0!3m2!1sen!2sin!4v1",
 } as const;
 
 // export const NAV_LINKS = [
@@ -47,13 +50,25 @@ export const NAV_LINKS = [
     dropdown: [
       { name: "All Services", path: "/services" },
       { name: "Hydrological Modeling", path: "/services#hydrology" },
-      { name: "Environmental Consultancy", path: "/services#environmental-eia" },
+      {
+        name: "Environmental Consultancy",
+        path: "/services#environmental-eia",
+      },
       { name: "BIM", path: "/services#architecture-interior" },
-      { name: "Infrastructure & Structural", path: "/services#water-infrastructure" },
-      { name: "Water Supply & Wastewater", path: "/services#dpr-project-reports" },
+      {
+        name: "Infrastructure & Structural",
+        path: "/services#water-infrastructure",
+      },
+      {
+        name: "Water Supply & Wastewater",
+        path: "/services#dpr-project-reports",
+      },
       { name: "Solid Waste Management", path: "/services#waste" },
       { name: "Renewable Energy", path: "/services#energy" },
-      { name: "Project Management & PMC", path: "/services#project-management" },
+      {
+        name: "Project Management & PMC",
+        path: "/services#project-management",
+      },
       { name: "GIS & Remote Sensing", path: "/services#survey-gis" },
       { name: "Custom Engineering", path: "/services#cad-support" },
       // { name: "Surveying & GIS", path: "/services#survey-gis" },

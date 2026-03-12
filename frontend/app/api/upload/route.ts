@@ -1,40 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { middleware } from '@/middleware/auth';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 
-export async function POST(request: NextRequest) {
-  // Check authentication
-  const authError = await middleware(request);
-  if (authError) return authError;
+export const runtime = 'nodejs';
 
+export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    const file = formData.get('file') as File;
+    const file = formData.get('file') as File | null;
 
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+    }
+    if (!file.type.startsWith('image/')) {
+      return NextResponse.json({ error: 'Only image files are allowed' }, { status: 400 });
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
     }
 
-    // Convert file to buffer
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const { url, publicId } = await uploadToCloudinary(buffer, 'virinchie-hygen/blogs');
 
-    // Upload to Cloudinary
-    const result = await uploadToCloudinary(buffer, 'blog-images');
-
-    return NextResponse.json({
-      success: true,
-      url: result.url,
-      publicId: result.publicId,
-    });
-  } catch (error) {
-    console.error('Upload error:', error);
-    return NextResponse.json(
-      { error: 'Failed to upload image' },
-      { status: 500 }
-    );
+    return NextResponse.json({ url, publicId });
+  } catch (err: any) {
+    console.error('[POST /api/upload]', err?.message);
+    return NextResponse.json({ error: err?.message ?? 'Upload failed' }, { status: 500 });
   }
 }

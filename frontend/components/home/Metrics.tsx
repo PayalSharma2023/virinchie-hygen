@@ -13,9 +13,10 @@ const stats = [
       </svg>
     ),
     color: 'from-sky-400 to-cyan-400',
-    bg: 'bg-sky-50',
-    border: 'border-sky-100',
-    text: 'text-sky-600',
+    bg: 'bg-sky-50 dark:bg-sky-950/40',
+    border: 'border-sky-100 dark:border-sky-800/50',
+    text: 'text-sky-600 dark:text-sky-400',
+    iconBg: 'bg-white dark:bg-slate-800',
   },
   {
     value: 4,
@@ -27,9 +28,10 @@ const stats = [
       </svg>
     ),
     color: 'from-teal-400 to-emerald-400',
-    bg: 'bg-teal-50',
-    border: 'border-teal-100',
-    text: 'text-teal-600',
+    bg: 'bg-teal-50 dark:bg-teal-950/40',
+    border: 'border-teal-100 dark:border-teal-800/50',
+    text: 'text-teal-600 dark:text-teal-400',
+    iconBg: 'bg-white dark:bg-slate-800',
   },
   {
     value: 10,
@@ -41,9 +43,10 @@ const stats = [
       </svg>
     ),
     color: 'from-blue-400 to-sky-400',
-    bg: 'bg-blue-50',
-    border: 'border-blue-100',
-    text: 'text-blue-600',
+    bg: 'bg-blue-50 dark:bg-blue-950/40',
+    border: 'border-blue-100 dark:border-blue-800/50',
+    text: 'text-blue-600 dark:text-blue-400',
+    iconBg: 'bg-white dark:bg-slate-800',
   },
   {
     value: 10,
@@ -55,11 +58,32 @@ const stats = [
       </svg>
     ),
     color: 'from-indigo-400 to-blue-400',
-    bg: 'bg-indigo-50',
-    border: 'border-indigo-100',
-    text: 'text-indigo-600',
+    bg: 'bg-indigo-50 dark:bg-indigo-950/40',
+    border: 'border-indigo-100 dark:border-indigo-800/50',
+    text: 'text-indigo-600 dark:text-indigo-400',
+    iconBg: 'bg-white dark:bg-slate-800',
   },
 ]
+
+function CountUp({ end, suffix, delay = 0 }: { end: number; suffix: string; delay?: number }) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const startTimer = setTimeout(() => {
+      let start = 0
+      const duration = 1800
+      const stepTime = 16
+      const increment = end / (duration / stepTime)
+      const timer = setInterval(() => {
+        start += increment
+        if (start >= end) { setCount(end); clearInterval(timer) }
+        else { setCount(Math.floor(start)) }
+      }, stepTime)
+      return () => clearInterval(timer)
+    }, delay)
+    return () => clearTimeout(startTimer)
+  }, [end, delay])
+  return <>{count}{suffix}</>
+}
 
 export default function Metrics() {
   const [isVisible, setIsVisible] = useState(false)
@@ -67,12 +91,7 @@ export default function Metrics() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect() } },
       { threshold: 0.2 }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
@@ -80,13 +99,9 @@ export default function Metrics() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-16 px-6 max-w-6xl mx-auto"
-    >
-      {/* Section label */}
+    <section ref={sectionRef} className="relative py-16 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-10">
-        <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-500 bg-sky-50 border border-sky-100 px-4 py-1.5 rounded-full">
+        <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-500 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30 border border-sky-100 dark:border-sky-800/50 px-4 py-1.5 rounded-full">
           <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
           Our Track Record
         </span>
@@ -96,66 +111,27 @@ export default function Metrics() {
         {stats.map((stat, index) => (
           <div
             key={index}
-            className={`group relative ${stat.bg} border ${stat.border} rounded-2xl p-6 md:p-8 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
-            style={{ animationDelay: `${index * 100}ms` }}
+            className={`group relative ${stat.bg} border ${stat.border} rounded-2xl p-6 md:p-8 text-center hover:shadow-lg dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
           >
-            {/* Background gradient blob on hover */}
             <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
 
-            {/* Icon */}
-            <div className={`inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white shadow-sm ${stat.text} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+            <div className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${stat.iconBg} shadow-sm ${stat.text} mb-4 group-hover:scale-110 transition-transform duration-300`}>
               {stat.icon}
             </div>
 
-            {/* Number */}
-            <div
-              className="text-4xl md:text-5xl font-bold text-slate-800 leading-none mb-2"
-              style={{ fontFamily: "'Georgia', serif" }}
-            >
-              {isVisible ? (
-                <CountUp end={stat.value} suffix={stat.suffix} delay={index * 150} />
-              ) : (
-                <>0{stat.suffix}</>
-              )}
+            <div className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white leading-none mb-2" style={{ fontFamily: "'Georgia', serif" }}>
+              {isVisible
+                ? <CountUp end={stat.value} suffix={stat.suffix} delay={index * 150} />
+                : <>0{stat.suffix}</>
+              }
             </div>
 
-            {/* Label */}
-            <div className="text-sm font-medium text-slate-500 leading-snug">{stat.label}</div>
+            <div className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-snug">{stat.label}</div>
 
-            {/* Animated bottom accent */}
             <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-1/2 bg-gradient-to-r ${stat.color} rounded-full transition-all duration-500`} />
           </div>
         ))}
       </div>
     </section>
   )
-}
-
-function CountUp({ end, suffix, delay = 0 }: { end: number; suffix: string; delay?: number }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    const startTimer = setTimeout(() => {
-      let start = 0
-      const duration = 1800
-      const stepTime = 16
-      const increment = end / (duration / stepTime)
-
-      const timer = setInterval(() => {
-        start += increment
-        if (start >= end) {
-          setCount(end)
-          clearInterval(timer)
-        } else {
-          setCount(Math.floor(start))
-        }
-      }, stepTime)
-
-      return () => clearInterval(timer)
-    }, delay)
-
-    return () => clearTimeout(startTimer)
-  }, [end, delay])
-
-  return <>{count}{suffix}</>
 }

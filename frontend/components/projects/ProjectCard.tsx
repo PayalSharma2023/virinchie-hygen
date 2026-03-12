@@ -19,16 +19,17 @@ interface ProjectCardProps {
   project: Project
 }
 
+// Each entry carries both light and dark variants inline
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  hydrology:      { bg: "bg-sky-50",    text: "text-sky-600",    border: "border-sky-100" },
-  infrastructure: { bg: "bg-blue-50",   text: "text-blue-600",   border: "border-blue-100" },
-  environment:    { bg: "bg-teal-50",   text: "text-teal-600",   border: "border-teal-100" },
-  gis:            { bg: "bg-rose-50",   text: "text-rose-600",   border: "border-rose-100" },
-  water:          { bg: "bg-cyan-50",   text: "text-cyan-600",   border: "border-cyan-100" },
-  energy:         { bg: "bg-amber-50",  text: "text-amber-600",  border: "border-amber-100" },
-  residential:    { bg: "bg-indigo-50", text: "text-indigo-600", border: "border-indigo-100" },
-  commercial:     { bg: "bg-violet-50", text: "text-violet-600", border: "border-violet-100" },
-  default:        { bg: "bg-slate-50",  text: "text-slate-500",  border: "border-slate-100" },
+  hydrology:      { bg: "bg-sky-50 dark:bg-sky-950/50",    text: "text-sky-600 dark:text-sky-400",    border: "border-sky-100 dark:border-sky-800/50"    },
+  infrastructure: { bg: "bg-blue-50 dark:bg-blue-950/50",  text: "text-blue-600 dark:text-blue-400",  border: "border-blue-100 dark:border-blue-800/50"  },
+  environment:    { bg: "bg-teal-50 dark:bg-teal-950/50",  text: "text-teal-600 dark:text-teal-400",  border: "border-teal-100 dark:border-teal-800/50"  },
+  gis:            { bg: "bg-rose-50 dark:bg-rose-950/50",  text: "text-rose-600 dark:text-rose-400",  border: "border-rose-100 dark:border-rose-800/50"  },
+  water:          { bg: "bg-cyan-50 dark:bg-cyan-950/50",  text: "text-cyan-600 dark:text-cyan-400",  border: "border-cyan-100 dark:border-cyan-800/50"  },
+  energy:         { bg: "bg-amber-50 dark:bg-amber-950/50",text: "text-amber-600 dark:text-amber-400",border: "border-amber-100 dark:border-amber-800/50"},
+  residential:    { bg: "bg-indigo-50 dark:bg-indigo-950/50",text: "text-indigo-600 dark:text-indigo-400",border: "border-indigo-100 dark:border-indigo-800/50"},
+  commercial:     { bg: "bg-violet-50 dark:bg-violet-950/50",text: "text-violet-600 dark:text-violet-400",border: "border-violet-100 dark:border-violet-800/50"},
+  default:        { bg: "bg-slate-50 dark:bg-slate-800",   text: "text-slate-500 dark:text-slate-400",border: "border-slate-100 dark:border-slate-700"   },
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
@@ -38,7 +39,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
+      className="group block bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1.5 transition-all duration-300"
     >
       {/* Image */}
       <div className="relative w-full h-52 overflow-hidden">
@@ -48,7 +49,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* Light gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent" />
 
         {/* Category badge */}
@@ -59,15 +59,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-base font-bold text-slate-800 leading-snug mb-2 group-hover:text-sky-600 transition-colors duration-200">
+        <h3 className="text-base font-bold text-slate-800 dark:text-white leading-snug mb-2 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors duration-200">
           {project.title}
         </h3>
-        <p className="text-sm text-slate-500 leading-relaxed mb-4 line-clamp-2">
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-2">
           {project.description}
         </p>
 
         {/* Meta row */}
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-4">
+        <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 mb-4">
           <span className="flex items-center gap-1">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -79,11 +79,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {project.area && (
-          <p className="text-xs text-slate-400 mb-4">Area: {project.area}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mb-4">Area: {project.area}</p>
         )}
 
         {/* View link */}
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-500">
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-500 dark:text-sky-400">
           View Project
           <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

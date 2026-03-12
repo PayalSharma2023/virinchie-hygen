@@ -28,7 +28,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     const [pagePath, hash] = itemPath.split("#");
     onClose();
     if (hash && pathname === pagePath) {
-      // Already on the page — wait for menu close animation then scroll
       setTimeout(() => {
         document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
       }, 300);
@@ -42,7 +41,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-black/30 dark:bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
@@ -53,7 +52,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
-        <div className="mx-4 rounded-2xl bg-white shadow-xl shadow-black/10 border border-gray-100 overflow-hidden">
+        <div className="mx-4 rounded-2xl bg-white dark:bg-slate-900 shadow-xl shadow-black/10 dark:shadow-black/50 border border-gray-100 dark:border-slate-700 overflow-hidden">
           {/* Top accent */}
           <div className="h-[3px] w-full bg-gradient-to-r from-[#210568] via-[#01589e] to-[#13baf6]" />
 
@@ -73,14 +72,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       onClick={() => setOpenAccordion(isAccordionOpen ? null : link.name)}
                       className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                         isActive
-                          ? "bg-blue-50 text-[#210568] font-semibold"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-[#01589e]"
+                          ? "bg-blue-50 dark:bg-sky-900/40 text-[#210568] dark:text-sky-400 font-semibold"
+                          : "text-slate-800 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-[#01589e] dark:hover:text-sky-400"
                       }`}
                     >
                       <span>{link.name}</span>
                       <ChevronDown
                         size={16}
-                        className={`transition-transform duration-300 text-[#01589e] ${
+                        className={`transition-transform duration-300 text-[#01589e] dark:text-sky-400 ${
                           isAccordionOpen ? "rotate-180" : ""
                         }`}
                       />
@@ -98,8 +97,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                             onClick={() => handleDropdownItemClick(item.path)}
                             className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm w-full text-left transition-all duration-150 ${
                               i === 0
-                                ? "font-semibold text-[#210568] hover:bg-blue-50"
-                                : "text-gray-500 hover:text-[#01589e] hover:bg-gray-50"
+                                ? "font-semibold text-[#210568] dark:text-sky-400 hover:bg-blue-50 dark:hover:bg-sky-900/40"
+                                : "text-gray-500 dark:text-slate-400 hover:text-[#01589e] dark:hover:text-sky-400 hover:bg-gray-50 dark:hover:bg-slate-800"
                             }`}
                           >
                             {i !== 0 && (
@@ -121,8 +120,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   onClick={onClose}
                   className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-blue-50 text-[#210568] font-semibold"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-[#01589e]"
+                      ? "bg-blue-50 dark:bg-sky-900/40 text-[#210568] dark:text-sky-400 font-semibold"
+                      : "text-slate-800 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-[#01589e] dark:hover:text-sky-400"
                   }`}
                 >
                   <span>{link.name}</span>
@@ -133,21 +132,21 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </nav>
 
           {/* Divider */}
-          <div className="mx-4 border-t border-gray-100" />
+          <div className="mx-4 border-t border-gray-100 dark:border-slate-700" />
 
           {/* CTA Buttons */}
           <div className="p-4 flex flex-col gap-3">
             <Link
               href="/jobs"
               onClick={onClose}
-              className="block text-center px-4 py-3 text-sm font-semibold text-[#210568] border-2 border-[#210568] rounded-xl hover:bg-[#210568] hover:text-white transition-all duration-200"
+              className="block text-center px-4 py-3 text-sm font-semibold text-[#210568] dark:text-sky-400 border-2 border-[#210568] dark:border-sky-500 rounded-xl hover:bg-[#210568] dark:hover:bg-sky-600 hover:text-white transition-all duration-200"
             >
               View Open Careers
             </Link>
             <Link
               href="/contact"
               onClick={onClose}
-              className="block text-center px-4 py-3 text-sm font-semibold text-white bg-[#210568] rounded-xl hover:bg-[#01589e] transition-all duration-200"
+              className="block text-center px-4 py-3 text-sm font-semibold text-white bg-[#210568] dark:bg-sky-700 rounded-xl hover:bg-[#01589e] dark:hover:bg-sky-600 transition-all duration-200"
             >
               Contact Us
             </Link>
