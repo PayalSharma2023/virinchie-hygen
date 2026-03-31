@@ -8,7 +8,7 @@ export default function MapWithDirections() {
       <div className="relative w-full h-[260px] rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700">
         <div className="absolute top-3 left-3 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-100 dark:border-slate-700 rounded-xl px-3 py-2 shadow-sm">
           <p className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500">Our Office</p>
-          <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">Shimla, Himachal Pradesh</p>
+          <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">{COMPANY_INFO.address.street}</p>
         </div>
         <iframe
           title="Virinchie Hygen Office Location"

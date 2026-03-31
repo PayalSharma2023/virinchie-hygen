@@ -213,7 +213,6 @@ export default function Navbar() {
         onClose={() => setIsMobileMenuOpen(false)}
       />
 
-      <div className="h-[67px]" />
     </>
   );
 }

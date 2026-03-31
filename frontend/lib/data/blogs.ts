@@ -291,7 +291,7 @@ export async function getPosts(): Promise<BlogPost[]> {
     const dbSlugs = new Set(dbPosts.map((p) => p.slug));
     const staticOnly = FALLBACK_POSTS.filter((p) => !dbSlugs.has(p.slug));
 
-    return [...dbPosts, ...staticOnly];
+    return [...dbPosts];
   } catch {
     return FALLBACK_POSTS;
   }
@@ -344,7 +344,7 @@ export async function getAllSlugs(): Promise<string[]> {
     if (!res.ok) return staticSlugs;
     const data = await res.json();
     const dbSlugs: string[] = (data.blogs ?? []).map((b: any) => b.slug);
-    return [...new Set([...staticSlugs, ...dbSlugs])];
+    return [...new Set([...dbSlugs])];
   } catch {
     return staticSlugs;
   }

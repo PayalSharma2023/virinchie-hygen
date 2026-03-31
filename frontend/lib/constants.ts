@@ -26,9 +26,10 @@ export const COMPANY_INFO = {
     sunday: "Closed",
   },
   mapsUrl:
-    "https://www.google.com/maps/search/Shimla,+Himachal+Pradesh,+India/@31.1048,77.1734,14z",
-  mapsEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27672.2!2d77.1734!3d31.1048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3904e1db5b9b7a07%3A0x3a90e5a7a8ded1a0!2sShimla%2C+Himachal+Pradesh!5e0!3m2!1sen!2sin!4v1",
+    "https://maps.app.goo.gl/6m6V5AviGpA5dak4A",
+    mapsEmbedUrl:"https://www.google.com/maps?q=Sharma+Cottage,+Thakur+Bagh,+Annandale,+Shimla,+Himachal+Pradesh+171001&output=embed",
+  // mapsEmbedUrl: "https://maps.app.goo.gl/TpTBVK2BVKZR79az9",
+    // "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27672.2!2d77.1734!3d31.1048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3904e1db5b9b7a07%3A0x3a90e5a7a8ded1a0!2sShimla%2C+Himachal+Pradesh!5e0!3m2!1sen!2sin!4v1",
 } as const;
 
 // export const NAV_LINKS = [

@@ -10,19 +10,25 @@ export default function AdminLogin() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(''); // For inline error message
 
-  useEffect(() => { checkAuth(); }, []);
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const checkAuth = async () => {
     try {
       const response = await fetch('/api/auth/verify');
       if (response.ok) router.push('/admin/blogs');
-    } catch { /* stay on login */ }
+    } catch {
+      // Stay on login page if not authenticated
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -30,14 +36,18 @@ export default function AdminLogin() {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+
       if (response.ok) {
         toast.success('Login successful!');
         router.push('/admin/blogs');
       } else {
+        // Show both toast and inline error
         toast.error(data.error || 'Login failed');
+        setError(data.error || 'Invalid email or password');
       }
     } catch {
       toast.error('An error occurred. Please try again.');
+      setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -95,6 +105,9 @@ export default function AdminLogin() {
                 />
               </div>
             </div>
+
+            {/* Inline error message */}
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
             <button
               type="submit"

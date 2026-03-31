@@ -250,30 +250,7 @@ export default function GoldPackagePage() {
         </div>
       </section>
 
-      {/* ── COMPARISON STRIP ── */}
-      <section className="py-16 px-6 bg-gradient-to-br from-amber-50/40 to-white dark:from-slate-900 dark:to-slate-950">
-        <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
-          {[
-            { tier: "Silver",   price: "₹1,599", active: false, href: "/packages/silver",   note: "Essential" },
-            { tier: "Gold",     price: "₹1,999", active: true,  href: "/packages/gold",     note: "You are here" },
-            { tier: "Platinum", price: "₹2,700", active: false, href: "/packages/platinum", note: "Luxury" },
-          ].map((t) => (
-            <Link key={t.tier} href={t.href}
-              className={`rounded-2xl p-5 text-center border transition-all duration-200 hover:-translate-y-1 ${
-                t.active
-                  ? "bg-gradient-to-br from-amber-500 to-amber-600 text-white border-amber-400 shadow-lg shadow-amber-200 dark:shadow-amber-900/30"
-                  : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-100 dark:border-slate-700 hover:border-amber-200 dark:hover:border-amber-700/50 hover:shadow-md"
-              }`}
-            >
-              <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${t.active ? "text-amber-100" : "text-slate-400"}`}>{t.note}</p>
-              <p className="text-xl font-bold mb-1" style={{ fontFamily: "'Georgia', serif" }}>{t.tier}</p>
-              <p className={`text-sm font-semibold ${t.active ? "text-amber-100" : "text-slate-500 dark:text-slate-400"}`}>{t.price}/sqft</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── UPGRADE NUDGE ── */}
+       {/* ── UPGRADE NUDGE ── */}
       <section className="py-16 px-6 bg-gradient-to-br from-yellow-50 to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-3xl mx-auto">
           <div className="bg-white dark:bg-slate-800/80 rounded-2xl border border-sky-100 dark:border-sky-800/40 shadow-lg dark:shadow-black/30 overflow-hidden">
@@ -299,6 +276,31 @@ export default function GoldPackagePage() {
         </div>
       </section>
 
+
+      {/* ── COMPARISON STRIP ── */}
+      <section className="py-16 px-6 bg-gradient-to-br from-amber-50/40 to-white dark:from-slate-900 dark:to-slate-950">
+        <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-4">
+          {[
+            { tier: "Silver",   price: "₹1,599", active: false, href: "/packages/silver",   note: "Essential" },
+            { tier: "Gold",     price: "₹1,999", active: true,  href: "/packages/gold",     note: "You are here" },
+            { tier: "Platinum", price: "₹2,700", active: false, href: "/packages/platinum", note: "Luxury" },
+          ].map((t) => (
+            <Link key={t.tier} href={t.href}
+              className={`rounded-2xl p-5 text-center border transition-all duration-200 hover:-translate-y-1 ${
+                t.active
+                  ? "bg-gradient-to-br from-amber-500 to-amber-600 text-white border-amber-400 shadow-lg shadow-amber-200 dark:shadow-amber-900/30"
+                  : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-100 dark:border-slate-700 hover:border-amber-200 dark:hover:border-amber-700/50 hover:shadow-md"
+              }`}
+            >
+              <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${t.active ? "text-amber-100" : "text-slate-400"}`}>{t.note}</p>
+              <p className="text-xl font-bold mb-1" style={{ fontFamily: "'Georgia', serif" }}>{t.tier}</p>
+              <p className={`text-sm font-semibold ${t.active ? "text-amber-100" : "text-slate-500 dark:text-slate-400"}`}>{t.price}/sqft</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+     
       {/* ── CTA ── */}
       <section className="py-20 px-6 bg-white dark:bg-slate-950">
         <div className="relative max-w-3xl mx-auto bg-gradient-to-br from-[#210568] to-[#01589e] rounded-3xl p-12 text-center overflow-hidden text-white shadow-2xl shadow-blue-900/30">

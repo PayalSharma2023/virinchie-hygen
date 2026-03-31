@@ -1,13 +1,24 @@
-import { Metadata } from "next";
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import Breadcrumb from "@/components/layout/BreadCrumb";
+import JobApplyModal from "@/models/JobApplyModal";
 
-export const metadata: Metadata = {
-  title: "Careers | Virinchie Hygen Engineering Consultants Pvt. Ltd.",
-  description: "Join Virinchie Hygen Engineering Consultants. Explore hydrology, GIS, environmental, and civil engineering career opportunities in India.",
-};
+interface Job {
+  id: number;
+  title: string;
+  location: string;
+  type: string;
+  experience: string;
+  category: string;
+  color: string;
+  bg: string;
+  border: string;
+  text: string;
+  icon: React.ReactNode;
+}
 
-const jobs = [
+const jobs: Job[] = [
   {
     id: 1, title: "Hydrology Engineer", location: "Delhi, India", type: "Full Time", experience: "2–5 Years", category: "Hydrology",
     color: "from-sky-400 to-cyan-400",
@@ -59,13 +70,15 @@ const jobs = [
 ];
 
 const perks = [
-  { label: "Impactful Work",     desc: "Projects that directly improve communities and ecosystems"       },
-  { label: "Mountain Locations", desc: "Work across scenic Himachal Pradesh and North India"             },
-  { label: "Technical Growth",   desc: "Exposure to GIS, HEC-HMS/RAS, and cutting-edge tools"           },
-  { label: "Flexible Options",   desc: "Remote and hybrid roles available for select positions"          },
+  { label: "Impactful Work",     desc: "Projects that directly improve communities and ecosystems" },
+  { label: "Mountain Locations", desc: "Work across scenic Himachal Pradesh and North India"      },
+  { label: "Technical Growth",   desc: "Exposure to GIS, HEC-HMS/RAS, and cutting-edge tools"    },
+  { label: "Flexible Options",   desc: "Remote and hybrid roles available for select positions"   },
 ];
 
 export default function JobsPage() {
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+
   return (
     <div className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100">
 
@@ -134,6 +147,8 @@ export default function JobsPage() {
               <div key={job.id}
                 className={`group relative ${job.bg} border ${job.border} rounded-2xl p-6 hover:shadow-lg dark:hover:shadow-black/40 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden flex flex-col`}>
                 <div className={`absolute inset-0 bg-gradient-to-br ${job.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-300 rounded-2xl`} />
+
+                {/* Header row */}
                 <div className="flex items-center justify-between mb-4 relative">
                   <div className={`inline-flex items-center justify-center w-11 h-11 rounded-xl bg-white dark:bg-slate-800 shadow-sm ${job.text} group-hover:scale-110 transition-transform duration-300`}>
                     {job.icon}
@@ -142,8 +157,11 @@ export default function JobsPage() {
                     {job.category}
                   </span>
                 </div>
-                <h2 className="text-base font-bold text-slate-800 dark:text-white mb-4 leading-snug">{job.title}</h2>
-                <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400 mb-6 flex-1">
+
+                <h2 className="text-base font-bold text-slate-800 dark:text-white mb-3 leading-snug">{job.title}</h2>
+
+                {/* Meta */}
+                <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 mb-5 flex-1">
                   <div className="flex items-center gap-2">
                     <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -164,6 +182,18 @@ export default function JobsPage() {
                     {job.experience}
                   </div>
                 </div>
+
+                {/* Apply button */}
+                <button
+                  onClick={() => setSelectedJob(job)}
+                  className={`group/btn relative z-10 w-full inline-flex items-center justify-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl border ${job.border} ${job.text} bg-white dark:bg-slate-800 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5`}
+                >
+                  Apply Now
+                  <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+
                 <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-0 group-hover:w-1/2 bg-gradient-to-r ${job.color} rounded-full transition-all duration-500`} />
               </div>
             ))}
@@ -201,6 +231,14 @@ export default function JobsPage() {
           </div>
         </div>
       </section>
+
+      {/* ── APPLY MODAL ── */}
+      {selectedJob && (
+        <JobApplyModal
+          job={selectedJob}
+          onClose={() => setSelectedJob(null)}
+        />
+      )}
     </div>
   );
 }

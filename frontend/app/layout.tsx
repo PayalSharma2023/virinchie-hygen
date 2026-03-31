@@ -10,9 +10,9 @@ const geistSans = Geist({
 });
 
 const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400','700','900'],
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -21,8 +21,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Virinchie Hygen Engineering Consultants Pvt. Ltd. - Sharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh, India",
-  description: "Virinchie Hygen Engineering Consultants provides civil and environmental engineering services inSharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh.",
+  title:
+    "Virinchie Hygen Engineering Consultants Pvt. Ltd. - Sharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh, India",
+  description:
+    "Virinchie Hygen Engineering Consultants provides civil and environmental engineering services inSharma Cottage, Thakur Bagh, Annandale, Shimla, Himachal Pradesh.",
   icons: {
     icon: "/logo.jpeg",
   },
@@ -35,14 +37,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
       <body
         className={`${geistSans.className} ${geistMono.className} ${playfair.className}
-         antialiased`}
+        antialiased`}
       >
-        <Navbar/>
-        {children}
-        <Footer/>
+        <Navbar />
+        <main className="pt-[67px]">{children}</main>
+        <Footer />
       </body>
     </html>
   );
