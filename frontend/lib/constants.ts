@@ -3,7 +3,7 @@ export const COMPANY_INFO = {
   fullName: "Virinchie Hygen Engineering Consultants Pvt. Ltd.",
   tagline:
     "Partner with Virinchie Hygen Engineering Consultants for reliable, sustainable, and innovative solutions.",
-  foundedYear: "2018",
+  foundedYear: "2022",
   phone: "+91 7018167926",
   email: "info@virinchiehygen.com",
   address: {
