@@ -128,7 +128,7 @@ export default function Hero() {
 
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-8 shadow-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+          {/* <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" /> */}
           Engineering Excellence Since 2022
         </div>
 
