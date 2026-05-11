@@ -3,25 +3,25 @@ import Image from "next/image";
 
 const featuredProjects = [
   {
-    title: "Flood Risk Mapping — Shimla District",
+    title: "Hydrological Studies — Combermere Bridge",
     category: "Hydrology",
-    image: "/flood.jpg",
+    image: "/1.jpg",
     link: "/projects",
-    tag: "GIS + Modeling",
+    tag: "Flood Analysis",
   },
   {
-    title: "Urban Drainage System — Dehradun",
-    category: "Civil Engineering",
-    image: "/drainage.jpg",
+    title: "Structural Design — IGMC Oncology Block",
+    category: "Structural Engineering",
+    image: "/2.jpg",
     link: "/projects",
-    tag: "Infrastructure",
+    tag: "Healthcare Infrastructure",
   },
   {
-    title: "Environmental Impact Assessment",
-    category: "Environmental",
-    image: "/impact.jpg",
+    title: "Highway Design — Bypass Road, Nadaun",
+    category: "Transportation",
+    image: "/3.jpg",
     link: "/projects",
-    tag: "EIA Report",
+    tag: "Road Engineering",
   },
 ];
 

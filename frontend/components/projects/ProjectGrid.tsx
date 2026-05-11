@@ -5,14 +5,17 @@ import ProjectCard from "./ProjectCard"
 import { projects } from "@/lib/data/projects"
 
 const categories = [
-  { value: "all",            label: "All Projects"  },
-  { value: "hydrology",      label: "Hydrology"     },
-  { value: "infrastructure", label: "Infrastructure"},
-  { value: "environment",    label: "Environment"   },
-  { value: "gis",            label: "GIS"           },
-  { value: "water",          label: "Water"         },
-  { value: "energy",         label: "Energy"        },
-]
+  { value: "all",             label: "All Projects" },
+  { value: "hydrology",       label: "Hydrology" },
+  { value: "structural",      label: "Structural" },
+  { value: "transportation",  label: "Transportation" },
+  { value: "planning",        label: "Planning" },
+  { value: "environmental",   label: "Environmental" },
+  { value: "disaster",        label: "Disaster Mitigation" },
+  { value: "infrastructure",  label: "Infrastructure" },
+  { value: "survey",          label: "Survey" },
+  { value: "water",           label: "Water Supply" },
+];
 
 export default function ProjectGrid() {
   const [filter, setFilter] = useState("all")
